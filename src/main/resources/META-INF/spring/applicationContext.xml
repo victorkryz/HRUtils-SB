@@ -4,17 +4,54 @@
        xmlns:context="http://www.springframework.org/schema/context"
        xmlns:tx="http://www.springframework.org/schema/tx"
        xmlns:aop="http://www.springframework.org/schema/aop"
-       xsi:schemaLocation="
-		http://www.springframework.org/schema/beans">
+       xsi:schemaLocation="http://www.springframework.org/schema/beans">
 		
+    <!--
     <context:property-placeholder location="classpath:META-INF/spring/database.properties"/>
+    -->
+
+    <!-- 
+    <bean id="dataSource" class="bitronix.tm.resource.jdbc.PoolingDataSource" init-method="init" destroy-method="close">
+        <property name="className" value="bitronix.tm.resource.jdbc.lrc.LrcXADataSource" />
+        <property name="uniqueName" value="otherDataSource"/>
+        <property name="minPoolSize" value="0"/>
+        <property name="maxPoolSize" value="5"/>
+        <property name="allowLocalTransactions" value="true"/>
+        <property name="testQuery" value="SELECT 1 FROM DUAL" />
+        <property name="driverProperties">
+            <props>
+                <prop key="driverClassName">${database.driverClassName}</prop>
+                <prop key="user">${database.username}</prop>
+                <prop key="password">${database.password}</prop>
+                <prop key="url">${database.url}</prop>
+            </props>
+        </property>
+    </bean>
+    
+     -->
+    
+    
+ 
+    <!-- 
+     <bean id="dataSource" class="oracle.ucp.jdbc.PoolDataSourceImpl"> 
+	     <property name="connectionFactoryClassName" value="${database.pool.driverClassName}"/> 
+	     <property name="URL" value="${database.url}"/> 
+	     <property name="user" value="${database.username}"/> 
+	     <property name="password" value="${database.password}"/> 
+	     <property name="maxPoolSize" value="5"/> 
+	     <property name="initialPoolSize" value="2"/> 
+     </bean>
+     
+    
   
- 	<!-- <bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource" destroy-method="close" >
+ 	<bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource" destroy-method="close" >
             <property name="javax.persistence.jdbc.driver" value="${database.driverClassName}"/>
             <property name="javax.persistence.jdbc.url" value="${database.url}"/>
             <property name="javax.persistence.jdbc.user" value="${database.username}"/>
             <property name="javax.persistence.jdbc.password" value="${database.password}"/>
-    </bean> -->
+    </bean>
+    
+    -->
     
 <!--     <bean id="dataSource" class="org.springframework.jdbc.datasource.SimpleDriverDataSource" > -->
 <!--             <property name="javax.persistence.jdbc.driver" value="${database.driverClassName}"/> -->

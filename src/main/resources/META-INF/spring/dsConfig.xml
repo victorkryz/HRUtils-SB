@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans">
+		
+    <bean id="dataSource" class="bitronix.tm.resource.jdbc.PoolingDataSource" init-method="init" destroy-method="close">
+        <property name="className" value="bitronix.tm.resource.jdbc.lrc.LrcXADataSource" />
+        <property name="uniqueName" value="otherDataSource"/>
+        <property name="minPoolSize" value="0"/>
+        <property name="maxPoolSize" value="5"/>
+        <property name="allowLocalTransactions" value="true"/>
+        <property name="testQuery" value="SELECT 1 FROM DUAL" />
+        <property name="driverProperties">
+            <props>
+                <prop key="driverClassName">${database.driverClassName}</prop>
+                <prop key="user">${database.username}</prop>
+                <prop key="password">${database.password}</prop>
+                <prop key="url">${database.url}</prop>
+            </props>
+        </property>
+    </bean>
+    
+</beans>
+

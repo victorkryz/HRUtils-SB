@@ -15,6 +15,9 @@ public class DbPkgConfig {
 	@Value("${pkg.name}")
 	String pkgName;
 	
+	public DbPkgConfig() {
+	}
+	
 	public String getSchemaName() {
 		return schemaName;
 	}

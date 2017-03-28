@@ -5,6 +5,8 @@
 .vscode
 ff.*
 
+transaction-logs/
+
 
 ### Java ###
 *.class

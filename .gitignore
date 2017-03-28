@@ -1,3 +1,11 @@
+# Project specific
+.local/
+.local.*
+.idea
+.vscode
+ff.*
+
+
 ### Java ###
 *.class
 
@@ -11,7 +19,6 @@
 
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
-
 
 target/
 !.mvn/wrapper/maven-wrapper.jar

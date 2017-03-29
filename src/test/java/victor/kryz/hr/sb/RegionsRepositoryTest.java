@@ -5,6 +5,7 @@ import static org.junit.Assert.*;
 import java.sql.SQLException;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 import java.util.function.Function;
 import java.util.stream.Collectors;
@@ -72,7 +73,7 @@ public class RegionsRepositoryTest
 	public void getRegions() throws SQLException 
 	{
 		List<String> namesFilterList = Arrays.asList(new String[] {"Asia", "Europe"}); 
-		RegionsEntryT[] regions = regRep.getRegions(namesFilterList);
+		RegionsEntryT[] regions = regRep.getRegions(Optional.of(namesFilterList));
 		
 		checkResult(namesFilterList, regions);
 	}
@@ -81,7 +82,7 @@ public class RegionsRepositoryTest
 	public void getRegions2() throws SQLException 
 	{
 		List<String> namesFilterList = Arrays.asList(new String[] {"Middle East and Africa", "Americas"}); 
-		RegionsEntryT[] regions = regRep.getRegions(namesFilterList);
+		RegionsEntryT[] regions = regRep.getRegions(Optional.of(namesFilterList));
 		
 		checkResult(namesFilterList, regions);
 	}
@@ -103,7 +104,6 @@ public class RegionsRepositoryTest
 		}	
 			
 		assertArrayEquals(resList.toArray(), namesFilterList.toArray());
-		
 	}
 	
 	

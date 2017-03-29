@@ -12,7 +12,7 @@ import oracle.jpub.runtime.MutableArray;
 
 public class LocationsT implements ORAData, ORADataFactory
 {
-  public static final String _SQL_NAME = "HR.HRUTILS_LOCATIONS_T";
+  public static final String _SQL_NAME = "HR_UTILS.LOCATIONS_T";
   public static final int _SQL_TYPECODE = OracleTypes.ARRAY;
 
   MutableArray _array;

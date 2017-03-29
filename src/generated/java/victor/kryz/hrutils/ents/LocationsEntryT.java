@@ -11,7 +11,7 @@ import oracle.jpub.runtime.MutableStruct;
 
 public class LocationsEntryT implements ORAData, ORADataFactory
 {
-  public static final String _SQL_NAME = "HR.HR_UTILS_LOCATIONS_ENTRY_T";
+  public static final String _SQL_NAME = "HR_UTILS.LOCATIONS_ENTRY_T";
   public static final int _SQL_TYPECODE = OracleTypes.STRUCT;
 
   protected MutableStruct _struct;

@@ -4,6 +4,7 @@ import java.util.Collections;
 import java.util.Hashtable;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jdbc.support.oracle.SqlReturnSqlData;
@@ -17,6 +18,7 @@ import oracle.jdbc.OracleConnection;
 import oracle.jdbc.internal.OracleTypes;
 import oracle.sql.ORAData;
 import victor.kryz.hr.sb.DbPkgConfig;
+import victor.kryz.hr.sb.utils.Converter;
 import victor.kryz.hrutils.ents.RegionsEntryT;
 import victor.kryz.hrutils.ents.RegionsT;
 import victor.kryz.hrutils.ents.StringListT;
@@ -34,7 +36,7 @@ public class RegionsRepository
 	RegionsRepository() {
 	}
 	
-	public RegionsEntryT[] getRegions(List<String> namesFilter) throws SQLException
+	public RegionsEntryT[] getRegions(Optional<List<String>> namesFilter) throws SQLException
 	{
 		final String strParam_region = "p_regions";
 		final String strParam_names_filter = "p_names_filter";
@@ -49,14 +51,9 @@ public class RegionsRepository
 											new SqlReturnSqlData(RegionsT.class)),
 						new SqlParameter(strParam_names_filter, StringListT._SQL_TYPECODE, StringListT. _SQL_NAME));
 		
-		Map<String, Object> params = null;
-		if ( namesFilter == null )
-			params = Collections.singletonMap(strParam_names_filter, null);
-		else
-		{
-			final StringListT filter = new StringListT(namesFilter.toArray(new String[namesFilter.size()]));
-			params = Collections.singletonMap(strParam_names_filter, filter);
-		}
+		final StringListT filter = namesFilter.isPresent() ?
+								   Converter.listToObjList(namesFilter.get()) : null;
+		final Map<String, Object> params = Collections.singletonMap(strParam_names_filter, filter);
 		
 		Map<String, Object> outVals = jdbcCall.execute(params);
 		

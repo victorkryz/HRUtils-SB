@@ -58,5 +58,4 @@ public class CountriesRepository
 		CountriesT tbItems = (CountriesT)outVals.get(strParam_countries);
 		return tbItems.getArray();
 	}
-	
 }

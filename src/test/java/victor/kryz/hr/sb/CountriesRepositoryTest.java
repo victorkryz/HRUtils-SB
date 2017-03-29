@@ -6,8 +6,7 @@ import java.math.BigDecimal;
 import java.sql.SQLException;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Set;
-import java.util.function.Function;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.junit.After;
@@ -93,7 +92,7 @@ public class CountriesRepositoryTest
 	private BigDecimal obtainRegId(String strRegName) throws SQLException
 	{
 		List<String> namesFilterList = Arrays.asList(new String[] {strRegName}); 
-		RegionsEntryT[] regions = repRegions.getRegions(namesFilterList);
+		RegionsEntryT[] regions = repRegions.getRegions(Optional.of(namesFilterList));
 		
 		assertTrue(regions.length == 1);
 		assertTrue(0 == regions[0].getRegionName().compareTo(strRegName));

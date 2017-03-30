@@ -8,6 +8,7 @@ import oracle.sql.ORAData;
 import victor.kryz.hrutils.ents.RegionsEntryT;
 import victor.kryz.hrutils.ents.RegionsT;
 import victor.kryz.hrutils.ents.CountriesEntryT;
+import victor.kryz.hrutils.ents.DepartmentsEntryT;
 import victor.kryz.hrutils.ents.LocationsEntryT;
 
 
@@ -43,6 +44,15 @@ public class Traccer
 		}
 	}
 	
+	<T extends DepartmentsEntryT> void trace(T[] items) throws SQLException
+	{
+		for ( T item : items)
+		{
+			LOG.info("-------------------");
+			trace(item);
+		}
+	}
+	
 	void trace(RegionsEntryT item) throws SQLException
 	{
 		 final String template = "%s (id: %s)";
@@ -64,5 +74,14 @@ public class Traccer
 				 				item.getStreetAddress(),
 				 				item.getPostalCode(),
 				 				item.getId().toString())); 
+	}
+	
+	void trace(DepartmentsEntryT item) throws SQLException
+	{
+		 final String template = "%s (id: %s, manager id: %s)";
+		 LOG.info(String.format(template, 
+				 				item.getDepartment().getDepName(),
+				 				item.getDepartment().getDepId(),
+				 				item.getManagerId()));
 	}
 }		

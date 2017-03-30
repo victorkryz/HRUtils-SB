@@ -10,24 +10,24 @@ import oracle.sql.ARRAY;
 import oracle.sql.ArrayDescriptor;
 import oracle.jpub.runtime.MutableArray;
 
-public class DepartmentsT implements ORAData, ORADataFactory
+public class DepartmentsMapT implements ORAData, ORADataFactory
 {
-  public static final String _SQL_NAME = "HR_UTILS.DEPARTMENTS_T";
+  public static final String _SQL_NAME = "HR_UTILS.DEPARTMENTS_MAP_T";
   public static final int _SQL_TYPECODE = OracleTypes.ARRAY;
 
   MutableArray _array;
 
-private static final DepartmentsT _HrutilsDepartmentsTFactory = new DepartmentsT();
+private static final DepartmentsMapT _HrutilsDepartmentsMapTFactory = new DepartmentsMapT();
 
   public static ORADataFactory getORADataFactory()
-  { return _HrutilsDepartmentsTFactory; }
+  { return _HrutilsDepartmentsMapTFactory; }
   /* constructors */
-  public DepartmentsT()
+  public DepartmentsMapT()
   {
     this((DepartmentsEntryT[])null);
   }
 
-  public DepartmentsT(DepartmentsEntryT[] a)
+  public DepartmentsMapT(DepartmentsEntryT[] a)
   {
     _array = new MutableArray(2002, a, DepartmentsEntryT.getORADataFactory());
   }
@@ -42,7 +42,7 @@ private static final DepartmentsT _HrutilsDepartmentsTFactory = new DepartmentsT
   public ORAData create(Datum d, int sqlType) throws SQLException
   {
     if (d == null) return null; 
-    DepartmentsT a = new DepartmentsT();
+    DepartmentsMapT a = new DepartmentsMapT();
     a._array = new MutableArray(2002, (ARRAY) d, DepartmentsEntryT.getORADataFactory());
     return a;
   }

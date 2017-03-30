@@ -73,7 +73,7 @@ public class LocationsRepository
 	
 	
 	
-	public LocationsEntryT[] getLocations(List<String> namesFilter) throws SQLException
+	public LocationsEntryT[] getLocations(final List<String> namesFilter) throws SQLException
 	{
 		final String strParam_names_filter = "p_names_filter";
 		final String strParam_locations = "p_locations";

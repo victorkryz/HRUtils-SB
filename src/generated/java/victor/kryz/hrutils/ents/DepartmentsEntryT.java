@@ -11,7 +11,7 @@ import oracle.jpub.runtime.MutableStruct;
 
 public class DepartmentsEntryT implements ORAData, ORADataFactory
 {
-  public static final String _SQL_NAME = "HR.HR_UTILS_DEPARTMENTS_ENTRY_T";
+  public static final String _SQL_NAME = "HR_UTILS.DEPARTMENTS_ENTRY_T";
   public static final int _SQL_TYPECODE = OracleTypes.STRUCT;
 
   protected MutableStruct _struct;

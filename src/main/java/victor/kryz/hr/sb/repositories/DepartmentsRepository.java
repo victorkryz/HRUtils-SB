@@ -21,6 +21,7 @@ import com.google.common.base.Joiner;
 import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;
 
+import oracle.jdbc.OracleTypeMetaData;
 import oracle.jdbc.internal.OracleTypes;
 import victor.kryz.hr.sb.DbPkgConfig;
 import victor.kryz.hr.sb.utils.Converter;
@@ -164,6 +165,38 @@ public class DepartmentsRepository
 		
 		Map<String, DepartmentsEntryT> call(final List<String> namesFilter) throws SQLException
 		{
+			
+//			MoS Note 1364193.1
+			
+			class DepartmentsMapLT implements oracle.jdbc.OracleStruct
+			{
+
+				@Override
+				public String getSQLTypeName() throws SQLException {
+					// TODO Auto-generated method stub
+					return "HR_UTILS.DEPARTMENTS_MAP_T";
+				}
+
+				@Override
+				public Object[] getAttributes() throws SQLException {
+					// TODO Auto-generated method stub
+					return null;
+				}
+
+				@Override
+				public Object[] getAttributes(Map<String, Class<?>> map) throws SQLException {
+					// TODO Auto-generated method stub
+					return null;
+				}
+
+				@Override
+				public OracleTypeMetaData getOracleMetaData() throws SQLException {
+					// TODO Auto-generated method stub
+					return null;
+				}
+				
+			}
+			
 			
 			
 			final Map<String, Object> params = Collections.singletonMap(param_names_list, 

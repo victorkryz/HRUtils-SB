@@ -10,26 +10,26 @@ import oracle.sql.ARRAY;
 import oracle.sql.ArrayDescriptor;
 import oracle.jpub.runtime.MutableArray;
 
-public class EmployeeSetT implements ORAData, ORADataFactory
+public class HrutilsJobHistoryT implements ORAData, ORADataFactory
 {
-  public static final String _SQL_NAME = "EMPLOYEE_SET_T";
+  public static final String _SQL_NAME = "HR_UTILS.JOB_HISTORY_T";
   public static final int _SQL_TYPECODE = OracleTypes.ARRAY;
 
   MutableArray _array;
 
-private static final EmployeeSetT _EmployeeSetTFactory = new EmployeeSetT();
+private static final HrutilsJobHistoryT _HrutilsJobHistoryTFactory = new HrutilsJobHistoryT();
 
   public static ORADataFactory getORADataFactory()
-  { return _EmployeeSetTFactory; }
+  { return _HrutilsJobHistoryTFactory; }
   /* constructors */
-  public EmployeeSetT()
+  public HrutilsJobHistoryT()
   {
-    this((EmployeeDescrT[])null);
+    this((HrUtilsJobHistoryEntryT[])null);
   }
 
-  public EmployeeSetT(EmployeeDescrT[] a)
+  public HrutilsJobHistoryT(HrUtilsJobHistoryEntryT[] a)
   {
-    _array = new MutableArray(2002, a, EmployeeDescrT.getORADataFactory());
+    _array = new MutableArray(2002, a, HrUtilsJobHistoryEntryT.getORADataFactory());
   }
 
   /* ORAData interface */
@@ -45,8 +45,8 @@ private static final EmployeeSetT _EmployeeSetTFactory = new EmployeeSetT();
   public ORAData create(Datum d, int sqlType) throws SQLException
   {
     if (d == null) return null; 
-    EmployeeSetT a = new EmployeeSetT();
-    a._array = new MutableArray(2002, (ARRAY) d, EmployeeDescrT.getORADataFactory());
+    HrutilsJobHistoryT a = new HrutilsJobHistoryT();
+    a._array = new MutableArray(2002, (ARRAY) d, HrUtilsJobHistoryEntryT.getORADataFactory());
     return a;
   }
 
@@ -71,34 +71,34 @@ private static final EmployeeSetT _EmployeeSetTFactory = new EmployeeSetT();
   }
 
   /* array accessor methods */
-  public EmployeeDescrT[] getArray() throws SQLException
+  public HrUtilsJobHistoryEntryT[] getArray() throws SQLException
   {
-    return (EmployeeDescrT[]) _array.getObjectArray(
-      new EmployeeDescrT[_array.length()]);
+    return (HrUtilsJobHistoryEntryT[]) _array.getObjectArray(
+      new HrUtilsJobHistoryEntryT[_array.length()]);
   }
 
-  public EmployeeDescrT[] getArray(long index, int count) throws SQLException
+  public HrUtilsJobHistoryEntryT[] getArray(long index, int count) throws SQLException
   {
-    return (EmployeeDescrT[]) _array.getObjectArray(index,
-      new EmployeeDescrT[_array.sliceLength(index, count)]);
+    return (HrUtilsJobHistoryEntryT[]) _array.getObjectArray(index,
+      new HrUtilsJobHistoryEntryT[_array.sliceLength(index, count)]);
   }
 
-  public void setArray(EmployeeDescrT[] a) throws SQLException
+  public void setArray(HrUtilsJobHistoryEntryT[] a) throws SQLException
   {
     _array.setObjectArray(a);
   }
 
-  public void setArray(EmployeeDescrT[] a, long index) throws SQLException
+  public void setArray(HrUtilsJobHistoryEntryT[] a, long index) throws SQLException
   {
     _array.setObjectArray(a, index);
   }
 
-  public EmployeeDescrT getElement(long index) throws SQLException
+  public HrUtilsJobHistoryEntryT getElement(long index) throws SQLException
   {
-    return (EmployeeDescrT) _array.getObjectElement(index);
+    return (HrUtilsJobHistoryEntryT) _array.getObjectElement(index);
   }
 
-  public void setElement(EmployeeDescrT a, long index) throws SQLException
+  public void setElement(HrUtilsJobHistoryEntryT a, long index) throws SQLException
   {
     _array.setObjectElement(a, index);
   }

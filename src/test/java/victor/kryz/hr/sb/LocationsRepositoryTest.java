@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
+import java.util.concurrent.ExecutionException;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
@@ -21,8 +22,12 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import victor.kryz.hr.sb.repositories.LocationsRepository;
-import victor.kryz.hrutils.ents.LocationsEntryT;
-import victor.kryz.hrutils.ents.RegionsEntryT;
+import victor.kryz.hr.sb.tracing.GetTracer;
+import victor.kryz.hr.sb.tracing.Tracer;
+import victor.kryz.hr.sb.utils.ThrowableWrapper;
+import victor.kryz.hrutils.ents.HrUtilsDepartmentsEntryT;
+import victor.kryz.hrutils.ents.HrUtilsLocationsEntryT;
+import victor.kryz.hrutils.ents.HrUtilsRegionsEntryT;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -44,15 +49,12 @@ public class LocationsRepositoryTest
 		}
 	}
 	
-	Traccer traccer;
-	
 	@Autowired
 	LocationsRepository repLocations;
 	
 
 	@Before
 	public void setUp() throws Exception {
-		traccer = new Traccer();
 	}
 
 	@After
@@ -64,51 +66,53 @@ public class LocationsRepositoryTest
 	}
 	
 	@Test
-	public void getLocations() throws SQLException 
+	public void getLocations() throws SQLException, ExecutionException 
 	{
-		LocationsEntryT[] ents = repLocations.getLocations("UK");
-		checkResult(ents);
-	}
-	
-	@Test
-	public void getLocations2() throws SQLException 
-	{
-		List<String> namesFilterList = Arrays.asList(new String[] {"California", "Yukon", "Sao Paulo", "New Jersey"});
-		LocationsEntryT[] ents = repLocations.getLocations(namesFilterList);
+		final String[] pattern  = new String[] {"London", "Oxford", "Stretford"};
+		List<HrUtilsLocationsEntryT> ents = checkByPattern("UK", Arrays.asList(pattern));
 		
-		assertTrue(namesFilterList.size()== ents.length);
-		checkResult(namesFilterList, ents);
-		traccer.trace(ents);
+		Tracer.traceObject(ents, GetTracer.getForClass(HrUtilsLocationsEntryT.class));
 	}
 	
 	@Test
-	public void trace() throws SQLException 
+	public void getLocationsByNames() throws SQLException, ExecutionException 
 	{
-		LocationsEntryT[] ents = repLocations.getLocations("UK");
-//		LocationsEntryT[] ents = repLocations.test1();
-		traccer.trace(ents);
+		List<String> namesFilterList = 
+				Arrays.asList(new String[] {"California", "Yukon", "Sao Paulo", "New Jersey"});
+		List<HrUtilsLocationsEntryT> ents = repLocations.findLocationsByNames(namesFilterList);
+		
+		assertTrue(namesFilterList.size()== ents.size());
+		checkResult(namesFilterList, ents);
+		
+		Tracer.traceObject(ents, GetTracer.getForClass(HrUtilsLocationsEntryT.class));
 	}
 	
-	private void checkResult(List<String> namesFilterList, LocationsEntryT[] ents)
+	private void checkResult(List<String> namesFilterList, List<HrUtilsLocationsEntryT> ents)
 	{
 		namesFilterList.sort((item1, item2) -> item1.compareTo(item2));
 		
-		List<String> resList = null;
-		{
-			List<LocationsEntryT> sortedItems = Arrays.asList(ents);
-			sortedItems.sort((LocationsEntryT item1, LocationsEntryT item2) ->
-							wrapThrowable(()->item1.getStateProvince())
-							.compareTo(wrapThrowable(()->item2.getStateProvince())));
-			resList = 
-					sortedItems.stream()
-						.map(item -> wrapThrowable(()-> item.getStateProvince()))
-							.collect(Collectors.toList());
-		}	
+		ents.sort((HrUtilsLocationsEntryT item1, HrUtilsLocationsEntryT item2) ->
+						ThrowableWrapper.wrap(()->item1.getStateProvince())
+						.compareTo(wrapThrowable(()->item2.getStateProvince())));
+		
+		List<String> checkList = 
+				ents.stream()
+					.map(item -> ThrowableWrapper.wrap(()-> item.getStateProvince()))
+						.collect(Collectors.toList());
 			
-		assertArrayEquals(resList.toArray(), namesFilterList.toArray());
+		assertArrayEquals(checkList.toArray(), namesFilterList.toArray());
 	}
 	
-	private void checkResult(LocationsEntryT[] ents)
-	{
+	private List<HrUtilsLocationsEntryT> checkByPattern(String countryId, 
+														List<String> pattern) throws SQLException, ExecutionException
+	{	
+		List<HrUtilsLocationsEntryT> ents = repLocations.findLocationsByCountryId(countryId);
+			
+		List<String> checkList = ents.stream()
+				.map(item -> ThrowableWrapper.wrap(()-> item.getCity()))
+				.collect(Collectors.toList());	
+		
+		assert(checkList.containsAll(pattern));
+		return ents;
 	}
 }

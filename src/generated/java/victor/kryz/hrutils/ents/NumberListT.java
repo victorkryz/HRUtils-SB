@@ -12,15 +12,15 @@ import oracle.jpub.runtime.MutableArray;
 
 public class NumberListT implements ORAData, ORADataFactory
 {
-  public static final String _SQL_NAME = "HR.NUMBER_LIST_T";
+  public static final String _SQL_NAME = "NUMBER_LIST_T";
   public static final int _SQL_TYPECODE = OracleTypes.ARRAY;
 
   MutableArray _array;
 
-private static final NumberListT _numberListFactory = new NumberListT();
+private static final NumberListT _NumberListTFactory = new NumberListT();
 
   public static ORADataFactory getORADataFactory()
-  { return _numberListFactory; }
+  { return _NumberListTFactory; }
   /* constructors */
   public NumberListT()
   {
@@ -35,8 +35,11 @@ private static final NumberListT _numberListFactory = new NumberListT();
   /* ORAData interface */
   public Datum toDatum(Connection c) throws SQLException
   {
+    if (__schemaName!=null) return _array.toDatum(c,__schemaName + "." + _SQL_NAME);
     return _array.toDatum(c, _SQL_NAME);
   }
+  private String __schemaName = null;
+  public void __setSchemaName(String schemaName) { __schemaName = schemaName; }
 
   /* ORADataFactory interface */
   public ORAData create(Datum d, int sqlType) throws SQLException

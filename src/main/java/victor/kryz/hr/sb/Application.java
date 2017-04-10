@@ -10,10 +10,10 @@ import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 
 import victor.kryz.hr.sb.repositories.EmployeesRepository;
 import victor.kryz.hr.sb.repositories.RegionsRepository;
-import victor.kryz.hrutils.ents.RegionsEntryT;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Locale;
 
 import javax.sql.DataSource;
 
@@ -30,10 +30,6 @@ public class Application  implements CommandLineRunner
 	RegionsRepository regRep;
 	
 	
-	Traccer traccer = new Traccer();
-	
-	
-
 	public static void main(String[] args) {
 		SpringApplication.run(Application.class, args);
 //		SpringApplication.run("classpath:/META-INF/spring/applicationContext.xml", args);
@@ -42,7 +38,12 @@ public class Application  implements CommandLineRunner
 	@Override
     public void run(String... args) throws Exception {
     	
-    	System.out.println("DATASOURCE = " + dataSource);
+      System.out.println("DATASOURCE = " + dataSource);
+    	
+ 	  Locale loc = new Locale("en","US");	
+      Locale.setDefault(loc);	 
+
+    	
     	
 //    	emplRep.test01();
 //    	emplRep.test02();

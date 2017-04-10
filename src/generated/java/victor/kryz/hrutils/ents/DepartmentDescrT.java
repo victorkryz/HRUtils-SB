@@ -11,17 +11,17 @@ import oracle.jpub.runtime.MutableStruct;
 
 public class DepartmentDescrT implements ORAData, ORADataFactory
 {
-  public static final String _SQL_NAME = "HR.DEPARTMENT_DESCR_T";
+  public static final String _SQL_NAME = "DEPARTMENT_DESCR_T";
   public static final int _SQL_TYPECODE = OracleTypes.STRUCT;
 
   protected MutableStruct _struct;
 
   protected static int[] _sqlType =  { 2,12 };
   protected static ORADataFactory[] _factory = new ORADataFactory[2];
-  protected static final DepartmentDescrT _DepartmentDescrFactory = new DepartmentDescrT();
+  protected static final DepartmentDescrT _DepartmentDescrTFactory = new DepartmentDescrT();
 
   public static ORADataFactory getORADataFactory()
-  { return _DepartmentDescrFactory; }
+  { return _DepartmentDescrTFactory; }
   /* constructors */
   protected void _init_struct(boolean init)
   { if (init) _struct = new MutableStruct(new Object[2], _sqlType, _factory); }

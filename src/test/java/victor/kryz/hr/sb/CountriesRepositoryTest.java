@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.ExecutionException;
 import java.util.stream.Collectors;
 
 import org.junit.After;
@@ -21,8 +22,11 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import victor.kryz.hr.sb.repositories.CountriesRepository;
 import victor.kryz.hr.sb.repositories.RegionsRepository;
-import victor.kryz.hrutils.ents.CountriesEntryT;
-import victor.kryz.hrutils.ents.RegionsEntryT;
+import victor.kryz.hr.sb.tracing.GetTracer;
+import victor.kryz.hr.sb.tracing.Tracer;
+import victor.kryz.hr.sb.utils.ThrowableWrapper;
+import victor.kryz.hrutils.ents.HrUtilsCountriesEntryT;
+import victor.kryz.hrutils.ents.HrUtilsRegionsEntryT;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -44,8 +48,6 @@ public class CountriesRepositoryTest
 		}
 	}
 	
-	Traccer traccer;
-	
 	@Autowired
 	RegionsRepository repRegions;
 	
@@ -62,7 +64,6 @@ public class CountriesRepositoryTest
 
 	@Before
 	public void setUp() throws Exception {
-		traccer = new Traccer();
 	}
 
 	@After
@@ -77,22 +78,22 @@ public class CountriesRepositoryTest
 	public void getCountries() throws SQLException 
 	{
 		final BigDecimal regId = obtainRegId("Europe");
-		CountriesEntryT[] ents = repCountries.getCountries(regId); 
+		HrUtilsCountriesEntryT[] ents = repCountries.findCountriesByRegionId(regId); 
 		checkResult(ents);
 	}
 	
 	@Test
-	public void trace() throws SQLException 
+	public void trace() throws SQLException, ExecutionException 
 	{
 		final BigDecimal regId = obtainRegId("Europe");
-		CountriesEntryT[] ents = repCountries.getCountries(regId);
-		traccer.trace(ents);
+		HrUtilsCountriesEntryT[] ents = repCountries.findCountriesByRegionId(regId);
+		Tracer.traceObject(ents, GetTracer.getForClass(HrUtilsCountriesEntryT.class));
 	}
 	
 	private BigDecimal obtainRegId(String strRegName) throws SQLException
 	{
 		List<String> namesFilterList = Arrays.asList(new String[] {strRegName}); 
-		RegionsEntryT[] regions = repRegions.getRegions(Optional.of(namesFilterList));
+		HrUtilsRegionsEntryT[] regions = repRegions.findRegions(Optional.of(namesFilterList));
 		
 		assertTrue(regions.length == 1);
 		assertTrue(0 == regions[0].getRegionName().compareTo(strRegName));
@@ -100,14 +101,14 @@ public class CountriesRepositoryTest
 		return regions[0].getRegionId();
 	}
 	
-	private void checkResult(CountriesEntryT[] ents)
+	private void checkResult(HrUtilsCountriesEntryT[] ents)
 	{
 		List<String> resList = null;
 		{
-			List<CountriesEntryT> sortedItems = Arrays.asList(ents);
-			sortedItems.sort((CountriesEntryT item1, CountriesEntryT item2) ->
-							wrapThrowable(()->item1.getName())
-							.compareTo(wrapThrowable(()->item2.getName())));
+			List<HrUtilsCountriesEntryT> sortedItems = Arrays.asList(ents);
+			sortedItems.sort((HrUtilsCountriesEntryT item1, HrUtilsCountriesEntryT item2) ->
+								ThrowableWrapper.wrap(()->item1.getName())
+									.compareTo(wrapThrowable(()->item2.getName())));
 			resList = 
 					sortedItems.stream()
 						.map(item -> wrapThrowable(()-> item.getName()))

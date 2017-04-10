@@ -9,14 +9,11 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import victor.kryz.hr.sb.repositories.RegionsRepository;
-import victor.kryz.hrutils.ents.RegionsEntryT;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class ApplicationTests 
 {
-	Traccer traccer = new Traccer();
-	
 	@Autowired
 	RegionsRepository regRep;
 	

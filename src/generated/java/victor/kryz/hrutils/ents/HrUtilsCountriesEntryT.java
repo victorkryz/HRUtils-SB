@@ -9,7 +9,7 @@ import oracle.sql.Datum;
 import oracle.sql.STRUCT;
 import oracle.jpub.runtime.MutableStruct;
 
-public class CountriesEntryT implements ORAData, ORADataFactory
+public class HrUtilsCountriesEntryT implements ORAData, ORADataFactory
 {
   public static final String _SQL_NAME = "HR_UTILS.COUNTRIES_ENTRY_T";
   public static final int _SQL_TYPECODE = OracleTypes.STRUCT;
@@ -18,16 +18,16 @@ public class CountriesEntryT implements ORAData, ORADataFactory
 
   protected static int[] _sqlType =  { 1,12 };
   protected static ORADataFactory[] _factory = new ORADataFactory[2];
-  protected static final CountriesEntryT _HrUtilsCountriesEntryTFactory = new CountriesEntryT();
+  protected static final HrUtilsCountriesEntryT _HrUtilsCountriesEntryTFactory = new HrUtilsCountriesEntryT();
 
   public static ORADataFactory getORADataFactory()
   { return _HrUtilsCountriesEntryTFactory; }
   /* constructors */
   protected void _init_struct(boolean init)
   { if (init) _struct = new MutableStruct(new Object[2], _sqlType, _factory); }
-  public CountriesEntryT()
+  public HrUtilsCountriesEntryT()
   { _init_struct(true); }
-  public CountriesEntryT(String id, String name) throws SQLException
+  public HrUtilsCountriesEntryT(String id, String name) throws SQLException
   { _init_struct(true);
     setId(id);
     setName(name);
@@ -43,10 +43,10 @@ public class CountriesEntryT implements ORAData, ORADataFactory
   /* ORADataFactory interface */
   public ORAData create(Datum d, int sqlType) throws SQLException
   { return create(null, d, sqlType); }
-  protected ORAData create(CountriesEntryT o, Datum d, int sqlType) throws SQLException
+  protected ORAData create(HrUtilsCountriesEntryT o, Datum d, int sqlType) throws SQLException
   {
     if (d == null) return null; 
-    if (o == null) o = new CountriesEntryT();
+    if (o == null) o = new HrUtilsCountriesEntryT();
     o._struct = new MutableStruct((STRUCT) d, _sqlType, _factory);
     return o;
   }

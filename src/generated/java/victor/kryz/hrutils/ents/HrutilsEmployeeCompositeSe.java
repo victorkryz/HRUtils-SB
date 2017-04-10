@@ -10,26 +10,26 @@ import oracle.sql.ARRAY;
 import oracle.sql.ArrayDescriptor;
 import oracle.jpub.runtime.MutableArray;
 
-public class EmployeeSetT implements ORAData, ORADataFactory
+public class HrutilsEmployeeCompositeSe implements ORAData, ORADataFactory
 {
-  public static final String _SQL_NAME = "EMPLOYEE_SET_T";
+  public static final String _SQL_NAME = "HR_UTILS.EMPLOYEE_COMPOSITE_SE";
   public static final int _SQL_TYPECODE = OracleTypes.ARRAY;
 
   MutableArray _array;
 
-private static final EmployeeSetT _EmployeeSetTFactory = new EmployeeSetT();
+private static final HrutilsEmployeeCompositeSe _HrutilsEmployeeCompositeSeFactory = new HrutilsEmployeeCompositeSe();
 
   public static ORADataFactory getORADataFactory()
-  { return _EmployeeSetTFactory; }
+  { return _HrutilsEmployeeCompositeSeFactory; }
   /* constructors */
-  public EmployeeSetT()
+  public HrutilsEmployeeCompositeSe()
   {
-    this((EmployeeDescrT[])null);
+    this((HrUtilsEmployeeComposite20[])null);
   }
 
-  public EmployeeSetT(EmployeeDescrT[] a)
+  public HrutilsEmployeeCompositeSe(HrUtilsEmployeeComposite20[] a)
   {
-    _array = new MutableArray(2002, a, EmployeeDescrT.getORADataFactory());
+    _array = new MutableArray(2002, a, HrUtilsEmployeeComposite20.getORADataFactory());
   }
 
   /* ORAData interface */
@@ -45,8 +45,8 @@ private static final EmployeeSetT _EmployeeSetTFactory = new EmployeeSetT();
   public ORAData create(Datum d, int sqlType) throws SQLException
   {
     if (d == null) return null; 
-    EmployeeSetT a = new EmployeeSetT();
-    a._array = new MutableArray(2002, (ARRAY) d, EmployeeDescrT.getORADataFactory());
+    HrutilsEmployeeCompositeSe a = new HrutilsEmployeeCompositeSe();
+    a._array = new MutableArray(2002, (ARRAY) d, HrUtilsEmployeeComposite20.getORADataFactory());
     return a;
   }
 
@@ -71,34 +71,34 @@ private static final EmployeeSetT _EmployeeSetTFactory = new EmployeeSetT();
   }
 
   /* array accessor methods */
-  public EmployeeDescrT[] getArray() throws SQLException
+  public HrUtilsEmployeeComposite20[] getArray() throws SQLException
   {
-    return (EmployeeDescrT[]) _array.getObjectArray(
-      new EmployeeDescrT[_array.length()]);
+    return (HrUtilsEmployeeComposite20[]) _array.getObjectArray(
+      new HrUtilsEmployeeComposite20[_array.length()]);
   }
 
-  public EmployeeDescrT[] getArray(long index, int count) throws SQLException
+  public HrUtilsEmployeeComposite20[] getArray(long index, int count) throws SQLException
   {
-    return (EmployeeDescrT[]) _array.getObjectArray(index,
-      new EmployeeDescrT[_array.sliceLength(index, count)]);
+    return (HrUtilsEmployeeComposite20[]) _array.getObjectArray(index,
+      new HrUtilsEmployeeComposite20[_array.sliceLength(index, count)]);
   }
 
-  public void setArray(EmployeeDescrT[] a) throws SQLException
+  public void setArray(HrUtilsEmployeeComposite20[] a) throws SQLException
   {
     _array.setObjectArray(a);
   }
 
-  public void setArray(EmployeeDescrT[] a, long index) throws SQLException
+  public void setArray(HrUtilsEmployeeComposite20[] a, long index) throws SQLException
   {
     _array.setObjectArray(a, index);
   }
 
-  public EmployeeDescrT getElement(long index) throws SQLException
+  public HrUtilsEmployeeComposite20 getElement(long index) throws SQLException
   {
-    return (EmployeeDescrT) _array.getObjectElement(index);
+    return (HrUtilsEmployeeComposite20) _array.getObjectElement(index);
   }
 
-  public void setElement(EmployeeDescrT a, long index) throws SQLException
+  public void setElement(HrUtilsEmployeeComposite20 a, long index) throws SQLException
   {
     _array.setObjectElement(a, index);
   }

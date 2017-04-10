@@ -2,12 +2,12 @@ package victor.kryz.hr.sb;
 
 import static org.junit.Assert.*;
 
+import java.math.BigDecimal;
 import java.sql.SQLException;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
-import java.util.concurrent.ExecutionException;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
@@ -21,15 +21,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import victor.kryz.hr.sb.ents.EmployeeBriefEntryT;
+import victor.kryz.hr.sb.repositories.EmployeesRepository;
 import victor.kryz.hr.sb.repositories.RegionsRepository;
-import victor.kryz.hr.sb.tracing.GetTracer;
-import victor.kryz.hr.sb.tracing.Tracer;
-import victor.kryz.hr.sb.tracing.specific.HrUtilsRegionsEntryT_Tracer;
 import victor.kryz.hrutils.ents.HrUtilsRegionsEntryT;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class RegionsRepositoryTest 
+public class EmployeesRepositoryTest 
 {
 	@FunctionalInterface
 	protected interface VoidParamFnk<R> {
@@ -48,7 +47,7 @@ public class RegionsRepositoryTest
 	}
 	
 	@Autowired
-	RegionsRepository regRep;
+	EmployeesRepository emplRep;
 	
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
@@ -70,22 +69,12 @@ public class RegionsRepositoryTest
 	public void contextLoads() {
 	}
 	
-	@Test
-	public void getRegions() throws SQLException 
-	{
-		List<String> namesFilterList = Arrays.asList(new String[] {"Asia", "Europe"}); 
-		HrUtilsRegionsEntryT[] regions = regRep.findRegions(Optional.of(namesFilterList));
-		
-		checkResult(namesFilterList, regions);
-	}
 	
 	@Test
-	public void getRegions2() throws SQLException 
+	public void getEmployeesWithJobHistory() throws SQLException 
 	{
-		List<String> namesFilterList = Arrays.asList(new String[] {"Middle East and Africa", "Americas"}); 
-		HrUtilsRegionsEntryT[] regions = regRep.findRegions(Optional.of(namesFilterList));
-		
-		checkResult(namesFilterList, regions);
+		List<EmployeeBriefEntryT> items = emplRep.getEmployeesWithJobHistory(Optional.empty());
+		System.out.println("Done!");
 	}
 	
 	private void checkResult(List<String> namesFilterList, HrUtilsRegionsEntryT[] regions)
@@ -110,46 +99,7 @@ public class RegionsRepositoryTest
 	
 
 	@Test
-	public void trace() throws SQLException, ExecutionException 
+	public void trace() throws SQLException 
 	{
-		HrUtilsRegionsEntryT[] regs = regRep.findRegions(Optional.empty());
-		Tracer.traceObject(regs, GetTracer.getForClass(HrUtilsRegionsEntryT.class));
 	}
-	
-	/*
-	 * @Test
-	public void getRegions() throws SQLException 
-	{
-		List<String> namesFilterList = Arrays.asList(new String[] {"Asia", "Europe"}); 
-		RegionsEntryT[] regs = regRep.getRegions(namesFilterList);
-		
-		namesFilterList.sort((item1, item2) -> item1.compareTo(item2));
-		
-		List<RegionsEntryT> regList = Arrays.asList(regs);
-		regList.sort((RegionsEntryT item1, RegionsEntryT item2) -> 
-		{ 
-			try
-			{
-				return item1.getRegionName().compareTo(item2.getRegionName());
-			}
-			catch (SQLException e){
-		        throw new RuntimeException(e);
-			}
-		} );
-		
-		List<String> resList = regList.stream().map(it -> 
-		{
-			try
-			{
-				return it.getRegionName();
-			}
-			catch (SQLException e){
-		        throw new RuntimeException(e);
-			}
-		}).collect(Collectors.toList());
-		
-		assertArrayEquals(resList.toArray(), namesFilterList.toArray());
-		
-	}
-	 */
 }

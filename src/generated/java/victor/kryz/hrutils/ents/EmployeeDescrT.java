@@ -11,17 +11,17 @@ import oracle.jpub.runtime.MutableStruct;
 
 public class EmployeeDescrT extends EmployeeShortDescrT implements ORAData, ORADataFactory
 {
-  public static final String _SQL_NAME = "HR.EMPLOYEE_DESCR_T";
+  public static final String _SQL_NAME = "EMPLOYEE_DESCR_T";
   public static final int _SQL_TYPECODE = OracleTypes.STRUCT;
 
   protected static int[] _sqlType =  { 2,12,12,12,12,2,91,12,2,2,2 };
   protected static ORADataFactory[] _factory = new ORADataFactory[11];
-  protected static final EmployeeDescrT _EmployeeDescrFactory = new EmployeeDescrT();
+  protected static final EmployeeDescrT _EmployeeDescrTFactory = new EmployeeDescrT();
 
   public static ORADataFactory getORADataFactory()
-  { return _EmployeeDescrFactory; }
+  { return _EmployeeDescrTFactory; }
   static
-  { _map.put("HR.EMPLOYEE_DESCR_T", _EmployeeDescrFactory); }
+  { _map.put("EMPLOYEE_DESCR_T", _EmployeeDescrTFactory); }
 
   /* constructors */
   protected void _init_struct(boolean init)

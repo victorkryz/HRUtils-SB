@@ -9,25 +9,25 @@ import oracle.sql.Datum;
 import oracle.sql.STRUCT;
 import oracle.jpub.runtime.MutableStruct;
 
-public class RegionsEntryT implements ORAData, ORADataFactory
+public class HrUtilsRegionsEntryT implements ORAData, ORADataFactory
 {
-  public static final String _SQL_NAME = "HR_UTILS.REGIONS_ENTRY_T";
+  public static final String _SQL_NAME = "HR_UTILS.ROWTYPE_SQL19";
   public static final int _SQL_TYPECODE = OracleTypes.STRUCT;
 
   protected MutableStruct _struct;
 
   protected static int[] _sqlType =  { 2,12 };
   protected static ORADataFactory[] _factory = new ORADataFactory[2];
-  protected static final RegionsEntryT _Entry = new RegionsEntryT();
+  protected static final HrUtilsRegionsEntryT _HrUtilsRowtypeSql19Factory = new HrUtilsRegionsEntryT();
 
   public static ORADataFactory getORADataFactory()
-  { return _Entry; }
+  { return _HrUtilsRowtypeSql19Factory; }
   /* constructors */
   protected void _init_struct(boolean init)
   { if (init) _struct = new MutableStruct(new Object[2], _sqlType, _factory); }
-  public RegionsEntryT()
+  public HrUtilsRegionsEntryT()
   { _init_struct(true); }
-  public RegionsEntryT(java.math.BigDecimal regionId, String regionName) throws SQLException
+  public HrUtilsRegionsEntryT(java.math.BigDecimal regionId, String regionName) throws SQLException
   { _init_struct(true);
     setRegionId(regionId);
     setRegionName(regionName);
@@ -43,10 +43,10 @@ public class RegionsEntryT implements ORAData, ORADataFactory
   /* ORADataFactory interface */
   public ORAData create(Datum d, int sqlType) throws SQLException
   { return create(null, d, sqlType); }
-  protected ORAData create(RegionsEntryT o, Datum d, int sqlType) throws SQLException
+  protected ORAData create(HrUtilsRegionsEntryT o, Datum d, int sqlType) throws SQLException
   {
     if (d == null) return null; 
-    if (o == null) o = new RegionsEntryT();
+    if (o == null) o = new HrUtilsRegionsEntryT();
     o._struct = new MutableStruct((STRUCT) d, _sqlType, _factory);
     return o;
   }

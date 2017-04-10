@@ -9,7 +9,7 @@ import oracle.sql.Datum;
 import oracle.sql.STRUCT;
 import oracle.jpub.runtime.MutableStruct;
 
-public class LocationsEntryT implements ORAData, ORADataFactory
+public class HrUtilsLocationsEntryT implements ORAData, ORADataFactory
 {
   public static final String _SQL_NAME = "HR_UTILS.LOCATIONS_ENTRY_T";
   public static final int _SQL_TYPECODE = OracleTypes.STRUCT;
@@ -18,16 +18,16 @@ public class LocationsEntryT implements ORAData, ORADataFactory
 
   protected static int[] _sqlType =  { 2,1,12,12,12,12 };
   protected static ORADataFactory[] _factory = new ORADataFactory[6];
-  protected static final LocationsEntryT _HrUtilsLocationsEntryTFactory = new LocationsEntryT();
+  protected static final HrUtilsLocationsEntryT _HrUtilsLocationsEntryTFactory = new HrUtilsLocationsEntryT();
 
   public static ORADataFactory getORADataFactory()
   { return _HrUtilsLocationsEntryTFactory; }
   /* constructors */
   protected void _init_struct(boolean init)
   { if (init) _struct = new MutableStruct(new Object[6], _sqlType, _factory); }
-  public LocationsEntryT()
+  public HrUtilsLocationsEntryT()
   { _init_struct(true); }
-  public LocationsEntryT(java.math.BigDecimal id, String countryId, String streetAddress, String postalCode, String city, String stateProvince) throws SQLException
+  public HrUtilsLocationsEntryT(java.math.BigDecimal id, String countryId, String streetAddress, String postalCode, String city, String stateProvince) throws SQLException
   { _init_struct(true);
     setId(id);
     setCountryId(countryId);
@@ -47,10 +47,10 @@ public class LocationsEntryT implements ORAData, ORADataFactory
   /* ORADataFactory interface */
   public ORAData create(Datum d, int sqlType) throws SQLException
   { return create(null, d, sqlType); }
-  protected ORAData create(LocationsEntryT o, Datum d, int sqlType) throws SQLException
+  protected ORAData create(HrUtilsLocationsEntryT o, Datum d, int sqlType) throws SQLException
   {
     if (d == null) return null; 
-    if (o == null) o = new LocationsEntryT();
+    if (o == null) o = new HrUtilsLocationsEntryT();
     o._struct = new MutableStruct((STRUCT) d, _sqlType, _factory);
     return o;
   }

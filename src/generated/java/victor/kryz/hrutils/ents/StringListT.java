@@ -1,15 +1,14 @@
 package victor.kryz.hrutils.ents;
 
-import java.sql.Connection;
 import java.sql.SQLException;
-
+import java.sql.Connection;
 import oracle.jdbc.OracleTypes;
-import oracle.jpub.runtime.MutableArray;
-import oracle.sql.ARRAY;
-import oracle.sql.ArrayDescriptor;
-import oracle.sql.Datum;
 import oracle.sql.ORAData;
 import oracle.sql.ORADataFactory;
+import oracle.sql.Datum;
+import oracle.sql.ARRAY;
+import oracle.sql.ArrayDescriptor;
+import oracle.jpub.runtime.MutableArray;
 
 public class StringListT implements ORAData, ORADataFactory
 {
@@ -18,10 +17,10 @@ public class StringListT implements ORAData, ORADataFactory
 
   MutableArray _array;
 
-private static final StringListT _stringListFactory = new StringListT();
+private static final StringListT _StringListTFactory = new StringListT();
 
   public static ORADataFactory getORADataFactory()
-  { return _stringListFactory; }
+  { return _StringListTFactory; }
   /* constructors */
   public StringListT()
   {
@@ -36,8 +35,11 @@ private static final StringListT _stringListFactory = new StringListT();
   /* ORAData interface */
   public Datum toDatum(Connection c) throws SQLException
   {
+    if (__schemaName!=null) return _array.toDatum(c,__schemaName + "." + _SQL_NAME);
     return _array.toDatum(c, _SQL_NAME);
   }
+  private String __schemaName = null;
+  public void __setSchemaName(String schemaName) { __schemaName = schemaName; }
 
   /* ORADataFactory interface */
   public ORAData create(Datum d, int sqlType) throws SQLException

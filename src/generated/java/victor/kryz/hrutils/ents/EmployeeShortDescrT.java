@@ -11,7 +11,7 @@ import oracle.jpub.runtime.MutableStruct;
 
 public class EmployeeShortDescrT implements ORAData, ORADataFactory
 {
-  public static final String _SQL_NAME = "HR.EMPLOYEE_SHORT_DESCR_T";
+  public static final String _SQL_NAME = "EMPLOYEE_SHORT_DESCR_T";
   public static final int _SQL_TYPECODE = OracleTypes.STRUCT;
 
   protected MutableStruct _struct;
@@ -28,8 +28,8 @@ public class EmployeeShortDescrT implements ORAData, ORADataFactory
   protected static synchronized void init()
   { if (!_initialized)
     { _initialized=true;
-      _map.put("EMPLOYEE_SHORT_DESCR_T", victor.kryz.hrutils.ents.EmployeeShortDescrT.getORADataFactory());
-      _map.put("EMPLOYEE_DESCR_T", victor.kryz.hrutils.ents.EmployeeDescrT.getORADataFactory());
+      _map.put("EMPLOYEE_SHORT_DESCR_T",victor.kryz.hrutils.ents.EmployeeShortDescrT.getORADataFactory());
+      _map.put("EMPLOYEE_DESCR_T",victor.kryz.hrutils.ents.EmployeeDescrT.getORADataFactory());
   } }
 
   /* constructors */

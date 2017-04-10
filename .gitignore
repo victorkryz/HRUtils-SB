@@ -4,6 +4,8 @@
 .idea
 .vscode
 ff.*
+*.cmd
+*.zip
 
 transaction-logs/
 

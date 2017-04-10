@@ -9,7 +9,7 @@ import oracle.sql.Datum;
 import oracle.sql.STRUCT;
 import oracle.jpub.runtime.MutableStruct;
 
-public class DepartmentsEntryT implements ORAData, ORADataFactory
+public class HrUtilsDepartmentsEntryT implements ORAData, ORADataFactory
 {
   public static final String _SQL_NAME = "HR_UTILS.DEPARTMENTS_ENTRY_T";
   public static final int _SQL_TYPECODE = OracleTypes.STRUCT;
@@ -22,16 +22,16 @@ public class DepartmentsEntryT implements ORAData, ORADataFactory
   {
     _factory[0] = DepartmentDescrT.getORADataFactory();
   }
-  protected static final DepartmentsEntryT _HrUtilsDepartmentsEntryTFactory = new DepartmentsEntryT();
+  protected static final HrUtilsDepartmentsEntryT _HrUtilsDepartmentsEntryTFactory = new HrUtilsDepartmentsEntryT();
 
   public static ORADataFactory getORADataFactory()
   { return _HrUtilsDepartmentsEntryTFactory; }
   /* constructors */
   protected void _init_struct(boolean init)
   { if (init) _struct = new MutableStruct(new Object[2], _sqlType, _factory); }
-  public DepartmentsEntryT()
+  public HrUtilsDepartmentsEntryT()
   { _init_struct(true); }
-  public DepartmentsEntryT(DepartmentDescrT department, java.math.BigDecimal managerId) throws SQLException
+  public HrUtilsDepartmentsEntryT(DepartmentDescrT department, java.math.BigDecimal managerId) throws SQLException
   { _init_struct(true);
     setDepartment(department);
     setManagerId(managerId);
@@ -47,10 +47,10 @@ public class DepartmentsEntryT implements ORAData, ORADataFactory
   /* ORADataFactory interface */
   public ORAData create(Datum d, int sqlType) throws SQLException
   { return create(null, d, sqlType); }
-  protected ORAData create(DepartmentsEntryT o, Datum d, int sqlType) throws SQLException
+  protected ORAData create(HrUtilsDepartmentsEntryT o, Datum d, int sqlType) throws SQLException
   {
     if (d == null) return null; 
-    if (o == null) o = new DepartmentsEntryT();
+    if (o == null) o = new HrUtilsDepartmentsEntryT();
     o._struct = new MutableStruct((STRUCT) d, _sqlType, _factory);
     return o;
   }

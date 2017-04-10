@@ -8,6 +8,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
+import java.util.concurrent.ExecutionException;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
@@ -24,6 +25,8 @@ import org.springframework.test.context.junit4.SpringRunner;
 import victor.kryz.hr.sb.ents.EmployeeBriefEntryT;
 import victor.kryz.hr.sb.repositories.EmployeesRepository;
 import victor.kryz.hr.sb.repositories.RegionsRepository;
+import victor.kryz.hr.sb.tracing.GetTracer;
+import victor.kryz.hr.sb.tracing.Tracer;
 import victor.kryz.hrutils.ents.HrUtilsRegionsEntryT;
 
 @RunWith(SpringRunner.class)
@@ -71,35 +74,9 @@ public class EmployeesRepositoryTest
 	
 	
 	@Test
-	public void getEmployeesWithJobHistory() throws SQLException 
+	public void getEmployeesWithJobHistory() throws SQLException, ExecutionException 
 	{
-		List<EmployeeBriefEntryT> items = emplRep.getEmployeesWithJobHistory(Optional.empty());
-		System.out.println("Done!");
-	}
-	
-	private void checkResult(List<String> namesFilterList, HrUtilsRegionsEntryT[] regions)
-	{
-		namesFilterList.sort((item1, item2) -> item1.compareTo(item2));
-		
-		List<String> resList = null;
-		{
-			List<HrUtilsRegionsEntryT> sortedItems = Arrays.asList(regions);
-			sortedItems.sort((HrUtilsRegionsEntryT item1, HrUtilsRegionsEntryT item2) ->
-							wrapThrowable(()->item1.getRegionName())
-							.compareTo(wrapThrowable(()->item2.getRegionName())));
-			resList = 
-					sortedItems.stream()
-						.map(item -> wrapThrowable(()-> item.getRegionName()))
-							.collect(Collectors.toList());
-		}	
-			
-		assertArrayEquals(resList.toArray(), namesFilterList.toArray());
-	}
-	
-	
-
-	@Test
-	public void trace() throws SQLException 
-	{
+		List<EmployeeBriefEntryT> ents = emplRep.getEmployeesWithJobHistory(Optional.empty());
+		Tracer.traceObject(ents, GetTracer.getForClass(EmployeeBriefEntryT.class));
 	}
 }

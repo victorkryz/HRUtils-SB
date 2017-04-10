@@ -43,11 +43,13 @@ public class RegionsRepository
 		final String param_region = "p_regions";
 		final String param_names_filter = "p_names_filter";
 		final String param_procedure_name = "GET_REGIONS";
+
+		final String cacheKey = "4JK3Q3VTz";
 		
 		// obtain SimpleJdbcCall object from cache 
 		// (or create and prepare it if one doesn't exist in cache) 
 		SimpleJdbcCall jdbcCall = 
-			simpJdbcCallsCache.getStmt(param_procedure_name,
+			simpJdbcCallsCache.getStmt(cacheKey,
 				new Callable<SimpleJdbcCall>() {
 					 @Override
 					    public SimpleJdbcCall call()  {

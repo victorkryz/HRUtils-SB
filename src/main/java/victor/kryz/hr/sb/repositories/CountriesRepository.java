@@ -40,9 +40,11 @@ public class CountriesRepository
 		final String param_region_id = "p_region_id";
 		final String param_countries = "p_countries";
 		final String procedure_name = "GET_COUNTRIES";
+
+		final String cacheKey = "Nk-LQh4pG";
 		
 		SimpleJdbcCall jdbcCall = 
-			simpJdbcCallsCache.getStmt(procedure_name,
+			simpJdbcCallsCache.getStmt(cacheKey,
 			  new Callable<SimpleJdbcCall>() {
 				@Override
 			    public SimpleJdbcCall call()  {

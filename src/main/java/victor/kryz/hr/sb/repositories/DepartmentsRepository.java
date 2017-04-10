@@ -112,9 +112,11 @@ public class DepartmentsRepository
 		final String param_dep_id = "p_dep_id";
 		final String result_key = "resultSet";
 		final String procedure_name = "GET_DEPARTMENT_STAT";
+
+		final String cacheKey = "NJE5Vn4pG";
 		
 		SimpleJdbcCall jdbcCall = 
-			simpJdbcCallsCache.getStmt(procedure_name,
+			simpJdbcCallsCache.getStmt(cacheKey,
 				new Callable<SimpleJdbcCall>() {
 				@Override
 				public SimpleJdbcCall call()  

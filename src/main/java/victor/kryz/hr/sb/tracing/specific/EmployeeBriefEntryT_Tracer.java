@@ -11,7 +11,8 @@ public class EmployeeBriefEntryT_Tracer implements ObjectTracer<EmployeeBriefEnt
 	@Override
 	public void trace(final EmployeeBriefEntryT item, Logger log) throws SQLException {
 		 final String template = "%s %s (id: %s, department id: %s )";
-		 log.info(String.format(template, item.getFirstName(), 
-				 	item.getLastName(), item.getDepId().toString()));
+		 log.info(String.format(template, item.getFirstName(),
+				 				item.getLastName(), item.getEmplId().toString(), 
+				 				item.getDepId().toString()));
 	}
 }

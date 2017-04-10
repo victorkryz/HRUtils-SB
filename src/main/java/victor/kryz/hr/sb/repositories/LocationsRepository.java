@@ -47,7 +47,7 @@ public class LocationsRepository
 	 */
 	public List<HrUtilsLocationsEntryT> findLocationsByCountryId(String strCountryId) throws SQLException
 	{
-		final String cacheKey = "key1";
+		final String cacheKey = "NkX8MhETM";
 		
 		SimpleJdbcCall jdbcCall = 
 			simpJdbcCallsCache.getStmt(cacheKey,
@@ -84,7 +84,7 @@ public class LocationsRepository
 	 */
 	public List<HrUtilsLocationsEntryT> findLocationsByNames(final List<String> namesFilter) throws SQLException
 	{
-		final String cacheKey = "key2";
+		final String cacheKey = "N1sYM3ETz";
 		
 		SimpleJdbcCall jdbcCall = 
 				simpJdbcCallsCache.getStmt(cacheKey,

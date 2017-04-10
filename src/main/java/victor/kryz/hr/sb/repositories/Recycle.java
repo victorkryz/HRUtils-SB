@@ -6,6 +6,7 @@ import java.sql.DatabaseMetaData;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Hashtable;
@@ -29,6 +30,7 @@ import oracle.jdbc.OracleConnection;
 import oracle.jdbc.internal.OracleTypes;
 import oracle.sql.ORAData;
 import victor.kryz.hr.sb.DbPkgConfig;
+import victor.kryz.hr.sb.ents.EmployeeBriefEntryT;
 import victor.kryz.hr.sb.utils.Converter;
 import victor.kryz.hr.sb.utils.NativeJdbcConnection;
 import victor.kryz.hrutils.ents.HrUtilsDepartmentsEntryT;
@@ -325,6 +327,68 @@ public class Recycle {
 				e.printStackTrace();
 			}
 //			return null;
+	}
+	
+	public List<EmployeeBriefEntryT> getEmployeesWithJobHistory(Optional<BigDecimal> depId) throws SQLException
+	{
+			String strCmd = "begin ? := hr_utils.get_employees_with_job_history(?); end;";
+			
+        	OracleConnection conn = NativeJdbcConnection.obtainOracleConnection(jdbcTemplate.getDataSource());  
+        	
+	        OracleCallableStatement stmt = (OracleCallableStatement)conn.prepareCall(strCmd);
+	        
+	        stmt.setNull(2, OracleTypes.NUMBER);
+	        stmt.registerOutParameter(1, OracleTypes.CURSOR);
+	        		        				
+			stmt.executeUpdate();
+			
+			ResultSet cursor = ((OracleCallableStatement)stmt).getCursor(1);
+			
+			ArrayList<EmployeeBriefEntryT> list = new ArrayList<EmployeeBriefEntryT>();
+			
+			ResultSetMetaData rsMeta =  cursor.getMetaData();
+			
+			int citems = rsMeta.getColumnCount();
+			for ( int i = 1; i <= citems; i++ )
+			{
+				String c = rsMeta.getColumnName(i);
+				LOG.info("Column " + i + " name  : " + c);
+			}
+			
+			try
+			{
+				while (cursor.next())
+				{
+					list.add(new EmployeeBriefEntryT(
+									 cursor.getBigDecimal("EMPLOYEE_ID"),
+									 cursor.getString("FIRST_NAME"),
+									 cursor.getString("LAST_NAME"),
+									 cursor.getBigDecimal("DEPARTMENT_ID")));
+				}
+				
+				cursor.close();
+			}
+			finally {
+				cursor.close();
+			}
+			
+			return list;
+	}
+	
+	
+	void test01(){
+		int i = jdbcTemplate.queryForObject("select 1 from dual", Integer.class);
+		System.out.println(i);
+	}
+	
+	void test02()
+	{
+		List<Map<String, Object>> selList = jdbcTemplate.queryForList("select * from EMPLOYEES_CONSOLIDATED_VIEW");
+		
+		for ( Map<String, Object> entry : selList )
+		{
+			System.out.println(entry.toString());
+		}
 	}
 
 }

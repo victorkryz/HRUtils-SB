@@ -32,6 +32,8 @@
 		<oracle.version>12.1.0.2</oracle.version>
 		<btm.version>2.1.4</btm.version>
 		<google.guava.version>14.0.1</google.guava.version>
+		<hibernate.version>5.2.3.Final</hibernate.version>
+        <hibernate.validator.version>5.2.3.Final</hibernate.validator.version>
 	</properties>
 
 	<dependencies>
@@ -54,6 +56,12 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-entitymanager</artifactId>
+			<version>${hibernate.version}</version>
 		</dependency>
 		
 		 <dependency>

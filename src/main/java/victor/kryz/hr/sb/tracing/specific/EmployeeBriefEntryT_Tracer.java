@@ -9,10 +9,10 @@ import victor.kryz.hr.sb.tracing.ObjectTracer;
 
 public class EmployeeBriefEntryT_Tracer implements ObjectTracer<EmployeeBriefEntryT> {
 	@Override
-	public void trace(final EmployeeBriefEntryT item, Logger log) throws SQLException {
+	public String getString(final EmployeeBriefEntryT item) throws SQLException {
 		 final String template = "%s %s (id: %s, department id: %s )";
-		 log.info(String.format(template, item.getFirstName(),
+		 return String.format(template, item.getFirstName(),
 				 				item.getLastName(), item.getEmplId().toString(), 
-				 				item.getDepId().toString()));
+				 				item.getDepId().toString());
 	}
 }

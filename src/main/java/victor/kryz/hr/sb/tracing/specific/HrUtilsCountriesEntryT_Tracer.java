@@ -9,9 +9,8 @@ import victor.kryz.hrutils.ents.HrUtilsRegionsEntryT;
 
 public class HrUtilsCountriesEntryT_Tracer implements ObjectTracer<HrUtilsCountriesEntryT> {
 	@Override
-	public void trace(HrUtilsCountriesEntryT item, Logger log) throws SQLException {
+	public String getString(HrUtilsCountriesEntryT item) throws SQLException {
 		 final String template = "%s (id: %s)";
-		 log.info(String.format(template, item.getName(), item.getId().toString()));
-		
+		 return String.format(template, item.getName(), item.getId().toString());
 	}
 }

@@ -7,6 +7,7 @@ import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -28,6 +29,8 @@ import oracle.jdbc.OracleTypes;
 import victor.kryz.hr.sb.ents.EmployeeBriefEntryT;
 import victor.kryz.hr.sb.utils.NativeJdbcConnection;
 import victor.kryz.hr.sb.utils.StmtCache;
+import victor.kryz.hrutils.ents.HrUtilsJobHistoryEntryT;
+import victor.kryz.hrutils.ents.HrutilsJobHistoryT;
 
 @Repository
 public class EmployeesRepository {
@@ -38,6 +41,34 @@ public class EmployeesRepository {
     private JdbcTemplate jdbcTemplate;
 	@Autowired
 	private StmtCache<OracleCallableStatement> nativeJdbcStmtCache;
+	
+	
+	public List<HrUtilsJobHistoryEntryT> getJobHistory(BigDecimal emplId) throws SQLException
+	{
+			final String strStmt = "begin hr_utils.get_job_history(?,?); end;";
+        	
+			OracleCallableStatement stmt =
+					nativeJdbcStmtCache.getStmt("VkrrwgLpz", 
+        				new Callable<OracleCallableStatement>() {
+							@Override
+							public OracleCallableStatement call() throws Exception {
+								return prepareStmt(strStmt);
+							}
+        				});
+        	
+	        final int historyIndex = 2;
+	        final int emplIdIndex = 1;
+	        
+	        stmt.setBigDecimal(emplIdIndex, emplId);
+	        stmt.registerOutParameter(historyIndex, 
+	        						  HrutilsJobHistoryT._SQL_TYPECODE, HrutilsJobHistoryT._SQL_NAME); 
+			stmt.executeUpdate();
+			
+			HrutilsJobHistoryT tbItems = (HrutilsJobHistoryT)stmt.getORAData(historyIndex, 
+																			 HrutilsJobHistoryT.getORADataFactory());
+			return Arrays.asList(tbItems.getArray());
+	}
+
 
 	
 	/**
@@ -55,9 +86,7 @@ public class EmployeesRepository {
         				new Callable<OracleCallableStatement>() {
 							@Override
 							public OracleCallableStatement call() throws Exception {
-								OracleConnection conn = NativeJdbcConnection.
-											obtainOracleConnection(jdbcTemplate.getDataSource());
-								return (OracleCallableStatement)conn.prepareCall(strStmt);
+								return prepareStmt(strStmt);
 							}
         				});
         	
@@ -95,6 +124,14 @@ public class EmployeesRepository {
 			}
 			
 			return list;
+	}
+	
+	
+	private OracleCallableStatement prepareStmt(String strStmt) throws SQLException
+	{
+		OracleConnection conn = NativeJdbcConnection.
+				obtainOracleConnection(jdbcTemplate.getDataSource());
+		return (OracleCallableStatement)conn.prepareCall(strStmt);
 	}
 	
 	

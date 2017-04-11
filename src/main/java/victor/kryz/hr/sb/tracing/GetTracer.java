@@ -13,10 +13,12 @@ import victor.kryz.hr.sb.tracing.specific.DepartmentStatisticT_Tracer;
 import victor.kryz.hr.sb.tracing.specific.EmployeeBriefEntryT_Tracer;
 import victor.kryz.hr.sb.tracing.specific.HrUtilsCountriesEntryT_Tracer;
 import victor.kryz.hr.sb.tracing.specific.HrUtilsDepartmentsEntryT_Tracer;
+import victor.kryz.hr.sb.tracing.specific.HrUtilsJobHistoryEntryT_Tracer;
 import victor.kryz.hr.sb.tracing.specific.HrUtilsLocationsEntryT_Tracer;
 import victor.kryz.hr.sb.tracing.specific.HrUtilsRegionsEntryT_Tracer;
 import victor.kryz.hrutils.ents.HrUtilsCountriesEntryT;
 import victor.kryz.hrutils.ents.HrUtilsDepartmentsEntryT;
+import victor.kryz.hrutils.ents.HrUtilsJobHistoryEntryT;
 import victor.kryz.hrutils.ents.HrUtilsLocationsEntryT;
 import victor.kryz.hrutils.ents.HrUtilsRegionsEntryT;
 
@@ -84,6 +86,14 @@ public class GetTracer {
 							 @Override
 							    public ObjectTracer<HrUtilsRegionsEntryT> call()  {
 							      return new HrUtilsRegionsEntryT_Tracer();
+							 	}
+  							});
+		else if (objectClassFor == HrUtilsJobHistoryEntryT.class)
+			tracer =  (ObjectTracer<T>)spCache.get(HrUtilsJobHistoryEntryT.class.getName(), 
+					new Callable<ObjectTracer<HrUtilsJobHistoryEntryT>>() {
+							 @Override
+							    public ObjectTracer<HrUtilsJobHistoryEntryT> call()  {
+							      return new HrUtilsJobHistoryEntryT_Tracer();
 							 	}
   							});
 		else

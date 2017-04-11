@@ -8,13 +8,13 @@ import victor.kryz.hrutils.ents.HrUtilsLocationsEntryT;
 
 public class HrUtilsLocationsEntryT_Tracer implements ObjectTracer<HrUtilsLocationsEntryT> {
 	@Override
-	public void trace(final HrUtilsLocationsEntryT item, Logger log) throws SQLException {		
+	public String getString(final HrUtilsLocationsEntryT item) throws SQLException {		
 		 final String template = "%s, %s, %s, %s (id: %s)";
-		 log.info(String.format(template, 
+		 return String.format(template, 
 				 				item.getCity(),
 				 				item.getStateProvince(),
 				 				item.getStreetAddress(),
 				 				item.getPostalCode(),
-				 				item.getId().toString()));
+				 				item.getId().toString());
 	}
 }

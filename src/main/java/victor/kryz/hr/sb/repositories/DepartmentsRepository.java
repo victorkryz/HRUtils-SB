@@ -150,7 +150,7 @@ public class DepartmentsRepository
 				}
 			});	
 		
-		Map<String, Object> params = 
+		Map<String, Object> params =  
 				Collections.singletonMap(param_dep_id, depId.isPresent() ? depId.get() : null);
 		
 		Map<String, Object> resVals = jdbcCall.execute(params);

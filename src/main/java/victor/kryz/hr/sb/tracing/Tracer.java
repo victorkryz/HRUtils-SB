@@ -25,7 +25,7 @@ public class Tracer {
 	
 	public static <T, S extends ObjectTracer<T>> void traceItem(T item, S tracer)
 	{
-		LOG.info("-------------------");
+		//& LOG.info("-------------------");
 		try {
 			tracer.trace(item, LOG);
 		} catch (SQLException e) {

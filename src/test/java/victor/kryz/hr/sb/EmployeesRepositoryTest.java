@@ -18,36 +18,28 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
+
+import com.google.common.base.Joiner;
 
 import victor.kryz.hr.sb.ents.EmployeeBriefEntryT;
 import victor.kryz.hr.sb.repositories.EmployeesRepository;
 import victor.kryz.hr.sb.repositories.RegionsRepository;
 import victor.kryz.hr.sb.tracing.GetTracer;
+import victor.kryz.hr.sb.tracing.ObjectTracer;
 import victor.kryz.hr.sb.tracing.Tracer;
+import victor.kryz.hrutils.ents.HrUtilsJobHistoryEntryT;
 import victor.kryz.hrutils.ents.HrUtilsRegionsEntryT;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class EmployeesRepositoryTest 
 {
-	@FunctionalInterface
-	protected interface VoidParamFnk<R> {
-		R method() throws SQLException;
-	}
-	
-	String wrapThrowable(VoidParamFnk<String> fnk)
-	{
-		try
-		{
-			return fnk.method();
-		}
-		catch (SQLException e){
-	        throw new RuntimeException(e);
-		}
-	}
+	private static final Logger LOG = LoggerFactory.getLogger(EmployeesRepositoryTest.class);
 	
 	@Autowired
 	EmployeesRepository emplRep;
@@ -72,11 +64,31 @@ public class EmployeesRepositoryTest
 	public void contextLoads() {
 	}
 	
+		
 	
 	@Test
 	public void getEmployeesWithJobHistory() throws SQLException, ExecutionException 
 	{
 		List<EmployeeBriefEntryT> ents = emplRep.getEmployeesWithJobHistory(Optional.empty());
-		Tracer.traceObject(ents, GetTracer.getForClass(EmployeeBriefEntryT.class));
+		
+		ObjectTracer<EmployeeBriefEntryT> emplTracer = GetTracer.getForClass(EmployeeBriefEntryT.class);
+		ObjectTracer<HrUtilsJobHistoryEntryT> jsTracer = GetTracer.getForClass(HrUtilsJobHistoryEntryT.class);
+		
+		for (EmployeeBriefEntryT item :  ents)
+		{
+			emplTracer.trace(item, LOG);
+			
+			List<HrUtilsJobHistoryEntryT> jhs = emplRep.getJobHistory(item.getEmplId());
+			
+			assert(jhs.size() != 0);
+			
+			for (HrUtilsJobHistoryEntryT jh : jhs)
+			{
+				final String strLine = Joiner.on(" ").join(" -", jsTracer.getString(jh));
+				jsTracer.putLn(strLine, LOG);
+			}
+			
+			emplTracer.putLn("----------------------", LOG);
+		}
 	}
 }

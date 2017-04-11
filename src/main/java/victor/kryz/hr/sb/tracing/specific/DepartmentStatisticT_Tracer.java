@@ -10,12 +10,25 @@ public class DepartmentStatisticT_Tracer implements ObjectTracer<DepartmentStati
 	@Override
 	public void trace(final DepartmentStatisticT item, Logger log) throws SQLException {
 		 final String template = "%s (id: %s) salary statistics: max - %s, min - %s, avg - %s, total - %s";
-		 log.info(String.format(template,
+		 log.info(getString
 				 				item.getDeptDescr().getDepName(),
 				 				item.getDeptDescr().getDepId().toString(),
 				 				item.getSalMax().toString(),
 				 				item.getSalMin().toString(),
 				 				item.getSalAvg().toString(),
 				 				item.getSalTotal().toString()));
+	}
+
+	@Override
+	public String getString(DepartmentStatisticT item) throws SQLException {
+		
+		final String template = "%s (id: %s) salary statistics: max - %s, min - %s, avg - %s, total - %s";
+		return String.format(template,
+				 				item.getDeptDescr().getDepName(),
+				 				item.getDeptDescr().getDepId().toString(),
+				 				item.getSalMax().toString(),
+				 				item.getSalMin().toString(),
+				 				item.getSalAvg().toString(),
+				 				item.getSalTotal().toString());
 	}
 }

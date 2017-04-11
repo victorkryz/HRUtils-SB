@@ -9,11 +9,11 @@ import victor.kryz.hrutils.ents.HrUtilsDepartmentsEntryT;
 
 public class HrUtilsDepartmentsEntryT_Tracer implements ObjectTracer<HrUtilsDepartmentsEntryT>{
 	@Override
-	public void trace(final HrUtilsDepartmentsEntryT item, Logger log) throws SQLException {
+	public String getString(final HrUtilsDepartmentsEntryT item) throws SQLException {
 		final String template = "%s (id: %s, manager id: %s)";
-		log.info(String.format(template, 
+		return String.format(template, 
 				 				item.getDepartment().getDepName(),
 				 				item.getDepartment().getDepId(),
-				 				item.getManagerId()));
+				 				item.getManagerId());
 	}
 }

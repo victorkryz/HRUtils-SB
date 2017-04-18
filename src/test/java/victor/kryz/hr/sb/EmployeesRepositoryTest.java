@@ -2,6 +2,7 @@ package victor.kryz.hr.sb;
 
 import static org.junit.Assert.*;
 
+
 import java.math.BigDecimal;
 import java.sql.SQLException;
 import java.util.Arrays;
@@ -34,6 +35,8 @@ import victor.kryz.hr.sb.tracing.ObjectTracer;
 import victor.kryz.hr.sb.tracing.Tracer;
 import victor.kryz.hrutils.ents.HrUtilsJobHistoryEntryT;
 import victor.kryz.hrutils.ents.HrUtilsRegionsEntryT;
+
+
 
 @RunWith(SpringRunner.class)
 @SpringBootTest

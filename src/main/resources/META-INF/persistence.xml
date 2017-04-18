@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.0"
+             xmlns="http://java.sun.com/xml/ns/persistence"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd">
+
+    <persistence-unit name="persistenceUnit" transaction-type="JTA">
+
+        <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+        <properties>
+         	<property name="hibernate.archive.autodetection"
+                      value="class, hbm"/>
+                     
+            <!-- vals: validate | update | create | create-drop -->    
+            <property name="hibernate.hbm2ddl.auto" value="update"/>
+            <property name="hibernate.connection.release_mode" value="after_transaction"/>
+            <property name="hibernate.dialect" value="org.hibernate.dialect.Oracle12cDialect"/>
+
+        </properties>
+        
+    </persistence-unit>
+</persistence>

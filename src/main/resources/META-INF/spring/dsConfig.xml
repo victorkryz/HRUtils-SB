@@ -5,6 +5,12 @@
        xmlns:tx="http://www.springframework.org/schema/tx"
        xmlns:aop="http://www.springframework.org/schema/aop"
        xsi:schemaLocation="http://www.springframework.org/schema/beans">
+       
+    <bean id="btmConfig" factory-method="getConfiguration" class="bitronix.tm.TransactionManagerServices">
+        <property name="warnAboutZeroResourceTransaction" value="true"/>
+        <property name="journal" value="${btm.config.journal:disk}"/>
+    </bean>
+    
 		
     <bean id="dataSource" class="bitronix.tm.resource.jdbc.PoolingDataSource" init-method="init" destroy-method="close">
         <property name="className" value="bitronix.tm.resource.jdbc.lrc.LrcXADataSource" />
@@ -22,6 +28,17 @@
             </props>
         </property>
     </bean>
+    
+    <bean id="persistenceUnitManager" depends-on="transactionManager" 
+           class="org.springframework.orm.jpa.persistenceunit.DefaultPersistenceUnitManager"> 
+         <property name="persistenceXmlLocation" value="classpath*:META-INF/persistence.xml"/>
+        <property name="defaultDataSource" ref="dataSource"/>
+        <property name="dataSourceLookup">
+            <bean class="org.springframework.jdbc.datasource.lookup.BeanFactoryDataSourceLookup"/>
+        </property>
+    </bean> 
+
+    
     
     <!-- JpaDialect must be configured for transactionManager to make JPA and JDBC share transactions -->
     <bean id="jpaDialect" class="org.springframework.orm.jpa.vendor.HibernateJpaDialect"/>

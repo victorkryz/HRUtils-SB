@@ -12,6 +12,9 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.SqlOutParameter;
 import org.springframework.jdbc.core.SqlParameter;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import oracle.jdbc.internal.OracleTypes;
 import victor.kryz.hr.sb.DbPkgConfig;
@@ -45,6 +48,7 @@ public class LocationsRepository
 	 * @return
 	 * @throws SQLException
 	 */
+	@Transactional(isolation=Isolation.READ_COMMITTED, propagation=Propagation.REQUIRED)
 	public List<HrUtilsLocationsEntryT> findLocationsByCountryId(String strCountryId) throws SQLException
 	{
 		final String cacheKey = "NkX8MhETM";
@@ -82,6 +86,7 @@ public class LocationsRepository
 	 * @return
 	 * @throws SQLException
 	 */
+	@Transactional(isolation=Isolation.READ_COMMITTED, propagation=Propagation.REQUIRED)
 	public List<HrUtilsLocationsEntryT> findLocationsByNames(final List<String> namesFilter) throws SQLException
 	{
 		final String cacheKey = "N1sYM3ETz";

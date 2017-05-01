@@ -6,6 +6,8 @@
 ff.*
 *.cmd
 *.zip
+*.tlog
+*.log
 
 transaction-logs/
 

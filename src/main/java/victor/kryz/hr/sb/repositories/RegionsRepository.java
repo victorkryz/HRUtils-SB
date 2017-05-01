@@ -12,6 +12,10 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.SqlOutParameter;
 import org.springframework.jdbc.core.SqlParameter;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.TransactionDefinition;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import victor.kryz.hr.sb.DbPkgConfig;
 import victor.kryz.hr.sb.utils.Converter;
@@ -38,6 +42,7 @@ public class RegionsRepository
 	 * @return 
 	 * @throws SQLException
 	 */
+	@Transactional(isolation=Isolation.READ_COMMITTED, propagation=Propagation.REQUIRED)
 	public HrUtilsRegionsEntryT[] findRegions(Optional<List<String>> namesFilter) throws SQLException
 	{
 		final String param_region = "p_regions";

@@ -22,7 +22,11 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import victor.kryz.hr.sb.ents.DepartmentStatisticT;
 import victor.kryz.hr.sb.repositories.DepartmentsRepository;
@@ -57,6 +61,8 @@ public class DepartmentsRepositoryTest
 	}
 	
 	@Test
+	@Rollback(false)
+	@Transactional(isolation=Isolation.READ_COMMITTED, propagation=Propagation.REQUIRED)
 	public void getDepartmentsByLocation() throws SQLException, ExecutionException 
 	{
 		{

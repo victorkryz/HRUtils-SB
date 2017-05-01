@@ -31,6 +31,9 @@ import org.springframework.jdbc.core.SqlParameter;
 import org.springframework.jdbc.core.simple.SimpleJdbcCall;
 import org.springframework.jdbc.core.simple.SimpleJdbcCallOperations;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.google.common.base.Joiner;
 import com.google.common.cache.Cache;
@@ -85,6 +88,7 @@ public class DepartmentsRepository
 	 * @return
 	 * @throws SQLException
 	 */
+	@Transactional(isolation=Isolation.READ_COMMITTED, propagation=Propagation.REQUIRED)
 	public List<HrUtilsDepartmentsEntryT> findDepartmentsByLocationId(final BigDecimal locationId) throws SQLException
 	{
 		final String cacheKey = GetDepartmentsByLocationProcedure.class.getName();
@@ -107,6 +111,7 @@ public class DepartmentsRepository
 	 * @throws SQLException
 	 */
 	@SuppressWarnings("unchecked")
+	@Transactional(isolation=Isolation.READ_COMMITTED, propagation=Propagation.REQUIRED)
 	public List<DepartmentStatisticT> getDepartmentsStat(final Optional<BigDecimal> depId) throws SQLException
 	{
 		final String param_dep_id = "p_dep_id";

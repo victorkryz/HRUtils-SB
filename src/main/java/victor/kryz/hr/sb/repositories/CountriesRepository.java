@@ -11,6 +11,9 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.SqlOutParameter;
 import org.springframework.jdbc.core.SqlParameter;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import oracle.jdbc.internal.OracleTypes;
 import victor.kryz.hr.sb.DbPkgConfig;
@@ -35,6 +38,7 @@ public class CountriesRepository
 	 * @return
 	 * @throws SQLException
 	 */
+	@Transactional(isolation=Isolation.READ_COMMITTED, propagation=Propagation.REQUIRED)
 	public HrUtilsCountriesEntryT[] findCountriesByRegionId(BigDecimal regId) throws SQLException
 	{
 		final String param_region_id = "p_region_id";

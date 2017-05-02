@@ -1,3 +1,8 @@
+/**
+ * HRUtils-SB
+ *
+ * @author Victor Kryzhanivskyi
+ */
 package victor.kryz.hr.sb.repositories;
 import java.sql.SQLException;
 import java.util.Arrays;
@@ -21,9 +26,9 @@ import victor.kryz.hr.sb.DbPkgConfig;
 import victor.kryz.hr.sb.repositories.DepartmentsRepository.GetDepartmentsByLocationProcedure;
 import victor.kryz.hr.sb.utils.Converter;
 import victor.kryz.hr.sb.utils.StmtCache;
-import victor.kryz.hrutils.ents.HrUtilsLocationsEntryT;
-import victor.kryz.hrutils.ents.HrutilsLocationsT;
-import victor.kryz.hrutils.ents.StringListT;
+import victor.kryz.hrutils.generated.ents.HrUtilsLocationsEntryT;
+import victor.kryz.hrutils.generated.ents.HrutilsLocationsT;
+import victor.kryz.hrutils.generated.ents.StringListT;
 
 import org.springframework.jdbc.core.simple.SimpleJdbcCall;
 

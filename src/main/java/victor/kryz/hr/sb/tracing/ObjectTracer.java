@@ -1,3 +1,8 @@
+/**
+ * HRUtils-SB
+ *
+ * @author Victor Kryzhanivskyi
+ */
 package victor.kryz.hr.sb.tracing;
 
 import java.sql.SQLException;

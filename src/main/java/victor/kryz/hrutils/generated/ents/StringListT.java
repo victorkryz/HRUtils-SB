@@ -1,4 +1,4 @@
-package victor.kryz.hrutils.ents;
+package victor.kryz.hrutils.generated.ents;
 
 import java.sql.SQLException;
 import java.sql.Connection;
@@ -10,26 +10,26 @@ import oracle.sql.ARRAY;
 import oracle.sql.ArrayDescriptor;
 import oracle.jpub.runtime.MutableArray;
 
-public class HrutilsCountriesT implements ORAData, ORADataFactory
+public class StringListT implements ORAData, ORADataFactory
 {
-  public static final String _SQL_NAME = "HR_UTILS.COUNTRIES_T";
+  public static final String _SQL_NAME = "STRING_LIST_T";
   public static final int _SQL_TYPECODE = OracleTypes.ARRAY;
 
   MutableArray _array;
 
-private static final HrutilsCountriesT _HrutilsCountriesTFactory = new HrutilsCountriesT();
+private static final StringListT _StringListTFactory = new StringListT();
 
   public static ORADataFactory getORADataFactory()
-  { return _HrutilsCountriesTFactory; }
+  { return _StringListTFactory; }
   /* constructors */
-  public HrutilsCountriesT()
+  public StringListT()
   {
-    this((HrUtilsCountriesEntryT[])null);
+    this((String[])null);
   }
 
-  public HrutilsCountriesT(HrUtilsCountriesEntryT[] a)
+  public StringListT(String[] a)
   {
-    _array = new MutableArray(2002, a, HrUtilsCountriesEntryT.getORADataFactory());
+    _array = new MutableArray(12, a, null);
   }
 
   /* ORAData interface */
@@ -45,8 +45,8 @@ private static final HrutilsCountriesT _HrutilsCountriesTFactory = new HrutilsCo
   public ORAData create(Datum d, int sqlType) throws SQLException
   {
     if (d == null) return null; 
-    HrutilsCountriesT a = new HrutilsCountriesT();
-    a._array = new MutableArray(2002, (ARRAY) d, HrUtilsCountriesEntryT.getORADataFactory());
+    StringListT a = new StringListT();
+    a._array = new MutableArray(12, (ARRAY) d, null);
     return a;
   }
 
@@ -71,34 +71,32 @@ private static final HrutilsCountriesT _HrutilsCountriesTFactory = new HrutilsCo
   }
 
   /* array accessor methods */
-  public HrUtilsCountriesEntryT[] getArray() throws SQLException
+  public String[] getArray() throws SQLException
   {
-    return (HrUtilsCountriesEntryT[]) _array.getObjectArray(
-      new HrUtilsCountriesEntryT[_array.length()]);
+    return (String[]) _array.getObjectArray();
   }
 
-  public HrUtilsCountriesEntryT[] getArray(long index, int count) throws SQLException
+  public String[] getArray(long index, int count) throws SQLException
   {
-    return (HrUtilsCountriesEntryT[]) _array.getObjectArray(index,
-      new HrUtilsCountriesEntryT[_array.sliceLength(index, count)]);
+    return (String[]) _array.getObjectArray(index, count);
   }
 
-  public void setArray(HrUtilsCountriesEntryT[] a) throws SQLException
+  public void setArray(String[] a) throws SQLException
   {
     _array.setObjectArray(a);
   }
 
-  public void setArray(HrUtilsCountriesEntryT[] a, long index) throws SQLException
+  public void setArray(String[] a, long index) throws SQLException
   {
     _array.setObjectArray(a, index);
   }
 
-  public HrUtilsCountriesEntryT getElement(long index) throws SQLException
+  public String getElement(long index) throws SQLException
   {
-    return (HrUtilsCountriesEntryT) _array.getObjectElement(index);
+    return (String) _array.getObjectElement(index);
   }
 
-  public void setElement(HrUtilsCountriesEntryT a, long index) throws SQLException
+  public void setElement(String a, long index) throws SQLException
   {
     _array.setObjectElement(a, index);
   }

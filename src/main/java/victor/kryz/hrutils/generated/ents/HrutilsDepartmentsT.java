@@ -1,4 +1,4 @@
-package victor.kryz.hrutils.ents;
+package victor.kryz.hrutils.generated.ents;
 
 import java.sql.SQLException;
 import java.sql.Connection;
@@ -10,26 +10,26 @@ import oracle.sql.ARRAY;
 import oracle.sql.ArrayDescriptor;
 import oracle.jpub.runtime.MutableArray;
 
-public class NumberListT implements ORAData, ORADataFactory
+public class HrutilsDepartmentsT implements ORAData, ORADataFactory
 {
-  public static final String _SQL_NAME = "NUMBER_LIST_T";
+  public static final String _SQL_NAME = "HR_UTILS.DEPARTMENTS_T";
   public static final int _SQL_TYPECODE = OracleTypes.ARRAY;
 
   MutableArray _array;
 
-private static final NumberListT _NumberListTFactory = new NumberListT();
+private static final HrutilsDepartmentsT _HrutilsDepartmentsTFactory = new HrutilsDepartmentsT();
 
   public static ORADataFactory getORADataFactory()
-  { return _NumberListTFactory; }
+  { return _HrutilsDepartmentsTFactory; }
   /* constructors */
-  public NumberListT()
+  public HrutilsDepartmentsT()
   {
-    this((java.math.BigDecimal[])null);
+    this((HrUtilsDepartmentsEntryT[])null);
   }
 
-  public NumberListT(java.math.BigDecimal[] a)
+  public HrutilsDepartmentsT(HrUtilsDepartmentsEntryT[] a)
   {
-    _array = new MutableArray(2, a, null);
+    _array = new MutableArray(2002, a, HrUtilsDepartmentsEntryT.getORADataFactory());
   }
 
   /* ORAData interface */
@@ -45,8 +45,8 @@ private static final NumberListT _NumberListTFactory = new NumberListT();
   public ORAData create(Datum d, int sqlType) throws SQLException
   {
     if (d == null) return null; 
-    NumberListT a = new NumberListT();
-    a._array = new MutableArray(2, (ARRAY) d, null);
+    HrutilsDepartmentsT a = new HrutilsDepartmentsT();
+    a._array = new MutableArray(2002, (ARRAY) d, HrUtilsDepartmentsEntryT.getORADataFactory());
     return a;
   }
 
@@ -71,32 +71,34 @@ private static final NumberListT _NumberListTFactory = new NumberListT();
   }
 
   /* array accessor methods */
-  public java.math.BigDecimal[] getArray() throws SQLException
+  public HrUtilsDepartmentsEntryT[] getArray() throws SQLException
   {
-    return (java.math.BigDecimal[]) _array.getObjectArray();
+    return (HrUtilsDepartmentsEntryT[]) _array.getObjectArray(
+      new HrUtilsDepartmentsEntryT[_array.length()]);
   }
 
-  public java.math.BigDecimal[] getArray(long index, int count) throws SQLException
+  public HrUtilsDepartmentsEntryT[] getArray(long index, int count) throws SQLException
   {
-    return (java.math.BigDecimal[]) _array.getObjectArray(index, count);
+    return (HrUtilsDepartmentsEntryT[]) _array.getObjectArray(index,
+      new HrUtilsDepartmentsEntryT[_array.sliceLength(index, count)]);
   }
 
-  public void setArray(java.math.BigDecimal[] a) throws SQLException
+  public void setArray(HrUtilsDepartmentsEntryT[] a) throws SQLException
   {
     _array.setObjectArray(a);
   }
 
-  public void setArray(java.math.BigDecimal[] a, long index) throws SQLException
+  public void setArray(HrUtilsDepartmentsEntryT[] a, long index) throws SQLException
   {
     _array.setObjectArray(a, index);
   }
 
-  public java.math.BigDecimal getElement(long index) throws SQLException
+  public HrUtilsDepartmentsEntryT getElement(long index) throws SQLException
   {
-    return (java.math.BigDecimal) _array.getObjectElement(index);
+    return (HrUtilsDepartmentsEntryT) _array.getObjectElement(index);
   }
 
-  public void setElement(java.math.BigDecimal a, long index) throws SQLException
+  public void setElement(HrUtilsDepartmentsEntryT a, long index) throws SQLException
   {
     _array.setObjectElement(a, index);
   }

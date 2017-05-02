@@ -1,3 +1,8 @@
+/**
+ * HRUtils-SB
+ *
+ * @author Victor Kryzhanivskyi
+ */
 package victor.kryz.hr.sb.repositories;
 
 import java.math.BigDecimal;
@@ -19,15 +24,16 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+
 import oracle.jdbc.OracleCallableStatement;
 import oracle.jdbc.OracleTypes;
 import victor.kryz.hr.sb.ents.EmployeeBriefEntryT;
 import victor.kryz.hr.sb.utils.Converter;
-import victor.kryz.hrutils.ents.EmployeeDescrT;
-import victor.kryz.hrutils.ents.EmployeeSetT;
-import victor.kryz.hrutils.ents.HrUtilsJobHistoryEntryT;
-import victor.kryz.hrutils.ents.HrutilsJobHistoryT;
-import victor.kryz.hrutils.ents.NumberListT;
+import victor.kryz.hrutils.generated.ents.EmployeeDescrT;
+import victor.kryz.hrutils.generated.ents.EmployeeSetT;
+import victor.kryz.hrutils.generated.ents.HrUtilsJobHistoryEntryT;
+import victor.kryz.hrutils.generated.ents.HrutilsJobHistoryT;
+import victor.kryz.hrutils.generated.ents.NumberListT;
 
 @Repository
 public class EmployeesRepository {
@@ -38,9 +44,11 @@ public class EmployeesRepository {
     private JdbcTemplate jdbcTemplate;
 	
 	/**
+	 * Calls procedure HR_UTILS.GET_EMPLOYEES_BY_FULL_NAME()
 	 * 
-	 * @param names
-	 * @return
+	 * @param names - list of employee full names
+	 *                forms by pattern: [first name][space][last name] 
+	 * @return list of employee identifiers
 	 * @throws SQLException
 	 */
 	@Transactional(isolation=Isolation.READ_COMMITTED, propagation=Propagation.REQUIRED)
@@ -71,9 +79,10 @@ public class EmployeesRepository {
 	}
 	
 	/**
+	 * Calls procedure HR_UTILS.GET_EMPLOYEES_WITH_JOB_HISTORY()
 	 * 
-	 * @param depId
-	 * @return
+	 * @param depId - department identifier
+	 * @return list of EmployeeBriefEntryT objects
 	 * @throws SQLException
 	 */
 	@Transactional(isolation=Isolation.READ_COMMITTED, propagation=Propagation.REQUIRED)
@@ -124,9 +133,10 @@ public class EmployeesRepository {
 	
 	
 	/**
+	 * Calls procedure HR_UTILS.GET_JOB_HISTORY()
 	 * 
-	 * @param emplId
-	 * @return
+	 * @param emplId - department identifier
+	 * @return list of HrUtilsJobHistoryEntryT objects
 	 * @throws SQLException
 	 */
 	@Transactional(isolation=Isolation.READ_COMMITTED, propagation=Propagation.REQUIRED)
@@ -154,7 +164,14 @@ public class EmployeesRepository {
 				stmt.close();
 			}
 	}
-	
+	/**
+	 * Calls procedure HR_UTILS.ADD_EMPLOYEES()
+	 * 
+	 * @param (in/out) employees - list of EmployeeDescrT objects
+	 * @return - fills identifier of each new employee 
+	 * 			 in appropriate EmployeeDescrT object 
+	 * @throws SQLException
+	 */
 	@Transactional(isolation=Isolation.READ_COMMITTED, propagation=Propagation.REQUIRED)
 	public void addEmployees(final List<EmployeeDescrT> employees) throws SQLException
 	{
@@ -188,6 +205,13 @@ public class EmployeesRepository {
 	}
 	
 	
+	/**
+	 * Calls procedure HR_UTILS.REMOVE_EMPLOYEES()
+	 * 
+	 * @param emplIds - list of employee identifiers to remove
+	 * @return number of removed employees
+	 * @throws SQLException
+	 */
 	@Transactional(isolation=Isolation.READ_COMMITTED, propagation=Propagation.REQUIRED)
 	public int removeEmployees(List<BigDecimal> emplIds) throws SQLException
 	{

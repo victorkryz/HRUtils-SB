@@ -1,3 +1,8 @@
+/**
+ * HRUtils-SB
+ *
+ * @author Victor Kryzhanivskyi
+ */
 package victor.kryz.hr.sb.ents;
 
 import java.math.BigDecimal;

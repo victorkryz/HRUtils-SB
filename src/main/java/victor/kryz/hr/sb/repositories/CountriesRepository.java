@@ -1,3 +1,8 @@
+/**
+ * HRUtils-SB
+ *
+ * @author Victor Kryzhanivskyi
+ */
 package victor.kryz.hr.sb.repositories;
 import java.math.BigDecimal;
 import java.sql.SQLException;
@@ -18,8 +23,9 @@ import org.springframework.transaction.annotation.Transactional;
 import oracle.jdbc.internal.OracleTypes;
 import victor.kryz.hr.sb.DbPkgConfig;
 import victor.kryz.hr.sb.utils.StmtCache;
-import victor.kryz.hrutils.ents.HrUtilsCountriesEntryT;
-import victor.kryz.hrutils.ents.HrutilsCountriesT;
+import victor.kryz.hrutils.generated.ents.HrUtilsCountriesEntryT;
+import victor.kryz.hrutils.generated.ents.HrutilsCountriesT;
+
 import org.springframework.jdbc.core.simple.SimpleJdbcCall;
 
 @Repository
@@ -33,9 +39,10 @@ public class CountriesRepository
 	private StmtCache<SimpleJdbcCall> simpJdbcCallsCache;
 	
 	/**
-	 * 
-	 * @param regId
-	 * @return
+	 * Calls package procedure HR_UTILS.GET_COUNTRIES()
+	 *  
+	 * @param regId - region identifier
+	 * @return array of HrUtilsCountriesEntryT
 	 * @throws SQLException
 	 */
 	@Transactional(isolation=Isolation.READ_COMMITTED, propagation=Propagation.REQUIRED)

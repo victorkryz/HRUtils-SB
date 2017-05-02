@@ -25,28 +25,13 @@ import victor.kryz.hr.sb.repositories.RegionsRepository;
 import victor.kryz.hr.sb.tracing.GetTracer;
 import victor.kryz.hr.sb.tracing.Tracer;
 import victor.kryz.hr.sb.tracing.specific.HrUtilsRegionsEntryT_Tracer;
-import victor.kryz.hrutils.ents.HrUtilsRegionsEntryT;
+import victor.kryz.hr.sb.utils.ThrowableWrapper;
+import victor.kryz.hrutils.generated.ents.HrUtilsRegionsEntryT;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class RegionsRepositoryTest 
 {
-	@FunctionalInterface
-	protected interface VoidParamFnk<R> {
-		R method() throws SQLException;
-	}
-	
-	String wrapThrowable(VoidParamFnk<String> fnk)
-	{
-		try
-		{
-			return fnk.method();
-		}
-		catch (SQLException e){
-	        throw new RuntimeException(e);
-		}
-	}
-	
 	@Autowired
 	RegionsRepository regRep;
 	
@@ -96,11 +81,11 @@ public class RegionsRepositoryTest
 		{
 			List<HrUtilsRegionsEntryT> sortedItems = Arrays.asList(regions);
 			sortedItems.sort((HrUtilsRegionsEntryT item1, HrUtilsRegionsEntryT item2) ->
-							wrapThrowable(()->item1.getRegionName())
-							.compareTo(wrapThrowable(()->item2.getRegionName())));
+							ThrowableWrapper.wrap(()->item1.getRegionName())
+							.compareTo(ThrowableWrapper.wrap(()->item2.getRegionName())));
 			resList = 
 					sortedItems.stream()
-						.map(item -> wrapThrowable(()-> item.getRegionName()))
+						.map(item -> ThrowableWrapper.wrap(()-> item.getRegionName()))
 							.collect(Collectors.toList());
 		}	
 			
@@ -115,41 +100,4 @@ public class RegionsRepositoryTest
 		HrUtilsRegionsEntryT[] regs = regRep.findRegions(Optional.empty());
 		Tracer.traceObject(regs, GetTracer.getForClass(HrUtilsRegionsEntryT.class));
 	}
-	
-	/*
-	 * @Test
-	public void getRegions() throws SQLException 
-	{
-		List<String> namesFilterList = Arrays.asList(new String[] {"Asia", "Europe"}); 
-		RegionsEntryT[] regs = regRep.getRegions(namesFilterList);
-		
-		namesFilterList.sort((item1, item2) -> item1.compareTo(item2));
-		
-		List<RegionsEntryT> regList = Arrays.asList(regs);
-		regList.sort((RegionsEntryT item1, RegionsEntryT item2) -> 
-		{ 
-			try
-			{
-				return item1.getRegionName().compareTo(item2.getRegionName());
-			}
-			catch (SQLException e){
-		        throw new RuntimeException(e);
-			}
-		} );
-		
-		List<String> resList = regList.stream().map(it -> 
-		{
-			try
-			{
-				return it.getRegionName();
-			}
-			catch (SQLException e){
-		        throw new RuntimeException(e);
-			}
-		}).collect(Collectors.toList());
-		
-		assertArrayEquals(resList.toArray(), namesFilterList.toArray());
-		
-	}
-	 */
 }

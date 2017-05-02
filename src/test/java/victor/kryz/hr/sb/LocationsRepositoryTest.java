@@ -25,30 +25,14 @@ import victor.kryz.hr.sb.repositories.LocationsRepository;
 import victor.kryz.hr.sb.tracing.GetTracer;
 import victor.kryz.hr.sb.tracing.Tracer;
 import victor.kryz.hr.sb.utils.ThrowableWrapper;
-import victor.kryz.hrutils.ents.HrUtilsDepartmentsEntryT;
-import victor.kryz.hrutils.ents.HrUtilsLocationsEntryT;
-import victor.kryz.hrutils.ents.HrUtilsRegionsEntryT;
+import victor.kryz.hrutils.generated.ents.HrUtilsDepartmentsEntryT;
+import victor.kryz.hrutils.generated.ents.HrUtilsLocationsEntryT;
+import victor.kryz.hrutils.generated.ents.HrUtilsRegionsEntryT;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class LocationsRepositoryTest 
 {
-	@FunctionalInterface
-	protected interface VoidParamFnk<R> {
-		R method() throws SQLException;
-	}
-	
-	String wrapThrowable(VoidParamFnk<String> fnk)
-	{
-		try
-		{
-			return fnk.method();
-		}
-		catch (SQLException e){
-	        throw new RuntimeException(e);
-		}
-	}
-	
 	@Autowired
 	LocationsRepository repLocations;
 	
@@ -93,7 +77,7 @@ public class LocationsRepositoryTest
 		
 		ents.sort((HrUtilsLocationsEntryT item1, HrUtilsLocationsEntryT item2) ->
 						ThrowableWrapper.wrap(()->item1.getStateProvince())
-						.compareTo(wrapThrowable(()->item2.getStateProvince())));
+						.compareTo(ThrowableWrapper.wrap(()->item2.getStateProvince())));
 		
 		List<String> checkList = 
 				ents.stream()

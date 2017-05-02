@@ -1,10 +1,15 @@
+/**
+ * HRUtils-SB
+ *
+ * @author Victor Kryzhanivskyi
+ */
 package victor.kryz.hr.sb.tracing.specific;
 
 import java.sql.SQLException;
 import org.slf4j.Logger;
 
 import victor.kryz.hr.sb.tracing.ObjectTracer;
-import victor.kryz.hrutils.ents.HrUtilsLocationsEntryT;
+import victor.kryz.hrutils.generated.ents.HrUtilsLocationsEntryT;
 
 public class HrUtilsLocationsEntryT_Tracer implements ObjectTracer<HrUtilsLocationsEntryT> {
 	@Override

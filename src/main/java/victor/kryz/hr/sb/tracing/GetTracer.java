@@ -1,3 +1,8 @@
+/**
+ * HRUtils-SB
+ *
+ * @author Victor Kryzhanivskyi
+ */
 package victor.kryz.hr.sb.tracing;
 
 import java.util.concurrent.Callable;
@@ -16,11 +21,11 @@ import victor.kryz.hr.sb.tracing.specific.HrUtilsDepartmentsEntryT_Tracer;
 import victor.kryz.hr.sb.tracing.specific.HrUtilsJobHistoryEntryT_Tracer;
 import victor.kryz.hr.sb.tracing.specific.HrUtilsLocationsEntryT_Tracer;
 import victor.kryz.hr.sb.tracing.specific.HrUtilsRegionsEntryT_Tracer;
-import victor.kryz.hrutils.ents.HrUtilsCountriesEntryT;
-import victor.kryz.hrutils.ents.HrUtilsDepartmentsEntryT;
-import victor.kryz.hrutils.ents.HrUtilsJobHistoryEntryT;
-import victor.kryz.hrutils.ents.HrUtilsLocationsEntryT;
-import victor.kryz.hrutils.ents.HrUtilsRegionsEntryT;
+import victor.kryz.hrutils.generated.ents.HrUtilsCountriesEntryT;
+import victor.kryz.hrutils.generated.ents.HrUtilsDepartmentsEntryT;
+import victor.kryz.hrutils.generated.ents.HrUtilsJobHistoryEntryT;
+import victor.kryz.hrutils.generated.ents.HrUtilsLocationsEntryT;
+import victor.kryz.hrutils.generated.ents.HrUtilsRegionsEntryT;
 
 public class GetTracer {
 	

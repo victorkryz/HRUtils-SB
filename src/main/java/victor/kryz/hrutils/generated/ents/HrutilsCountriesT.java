@@ -1,4 +1,4 @@
-package victor.kryz.hrutils.ents;
+package victor.kryz.hrutils.generated.ents;
 
 import java.sql.SQLException;
 import java.sql.Connection;
@@ -10,26 +10,26 @@ import oracle.sql.ARRAY;
 import oracle.sql.ArrayDescriptor;
 import oracle.jpub.runtime.MutableArray;
 
-public class EmployeeSetT implements ORAData, ORADataFactory
+public class HrutilsCountriesT implements ORAData, ORADataFactory
 {
-  public static final String _SQL_NAME = "EMPLOYEE_SET_T";
+  public static final String _SQL_NAME = "HR_UTILS.COUNTRIES_T";
   public static final int _SQL_TYPECODE = OracleTypes.ARRAY;
 
   MutableArray _array;
 
-private static final EmployeeSetT _EmployeeSetTFactory = new EmployeeSetT();
+private static final HrutilsCountriesT _HrutilsCountriesTFactory = new HrutilsCountriesT();
 
   public static ORADataFactory getORADataFactory()
-  { return _EmployeeSetTFactory; }
+  { return _HrutilsCountriesTFactory; }
   /* constructors */
-  public EmployeeSetT()
+  public HrutilsCountriesT()
   {
-    this((EmployeeDescrT[])null);
+    this((HrUtilsCountriesEntryT[])null);
   }
 
-  public EmployeeSetT(EmployeeDescrT[] a)
+  public HrutilsCountriesT(HrUtilsCountriesEntryT[] a)
   {
-    _array = new MutableArray(2002, a, EmployeeDescrT.getORADataFactory());
+    _array = new MutableArray(2002, a, HrUtilsCountriesEntryT.getORADataFactory());
   }
 
   /* ORAData interface */
@@ -45,8 +45,8 @@ private static final EmployeeSetT _EmployeeSetTFactory = new EmployeeSetT();
   public ORAData create(Datum d, int sqlType) throws SQLException
   {
     if (d == null) return null; 
-    EmployeeSetT a = new EmployeeSetT();
-    a._array = new MutableArray(2002, (ARRAY) d, EmployeeDescrT.getORADataFactory());
+    HrutilsCountriesT a = new HrutilsCountriesT();
+    a._array = new MutableArray(2002, (ARRAY) d, HrUtilsCountriesEntryT.getORADataFactory());
     return a;
   }
 
@@ -71,34 +71,34 @@ private static final EmployeeSetT _EmployeeSetTFactory = new EmployeeSetT();
   }
 
   /* array accessor methods */
-  public EmployeeDescrT[] getArray() throws SQLException
+  public HrUtilsCountriesEntryT[] getArray() throws SQLException
   {
-    return (EmployeeDescrT[]) _array.getObjectArray(
-      new EmployeeDescrT[_array.length()]);
+    return (HrUtilsCountriesEntryT[]) _array.getObjectArray(
+      new HrUtilsCountriesEntryT[_array.length()]);
   }
 
-  public EmployeeDescrT[] getArray(long index, int count) throws SQLException
+  public HrUtilsCountriesEntryT[] getArray(long index, int count) throws SQLException
   {
-    return (EmployeeDescrT[]) _array.getObjectArray(index,
-      new EmployeeDescrT[_array.sliceLength(index, count)]);
+    return (HrUtilsCountriesEntryT[]) _array.getObjectArray(index,
+      new HrUtilsCountriesEntryT[_array.sliceLength(index, count)]);
   }
 
-  public void setArray(EmployeeDescrT[] a) throws SQLException
+  public void setArray(HrUtilsCountriesEntryT[] a) throws SQLException
   {
     _array.setObjectArray(a);
   }
 
-  public void setArray(EmployeeDescrT[] a, long index) throws SQLException
+  public void setArray(HrUtilsCountriesEntryT[] a, long index) throws SQLException
   {
     _array.setObjectArray(a, index);
   }
 
-  public EmployeeDescrT getElement(long index) throws SQLException
+  public HrUtilsCountriesEntryT getElement(long index) throws SQLException
   {
-    return (EmployeeDescrT) _array.getObjectElement(index);
+    return (HrUtilsCountriesEntryT) _array.getObjectElement(index);
   }
 
-  public void setElement(EmployeeDescrT a, long index) throws SQLException
+  public void setElement(HrUtilsCountriesEntryT a, long index) throws SQLException
   {
     _array.setObjectElement(a, index);
   }

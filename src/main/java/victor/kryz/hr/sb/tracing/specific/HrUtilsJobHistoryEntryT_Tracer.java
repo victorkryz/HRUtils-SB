@@ -1,10 +1,15 @@
+/**
+ * HRUtils-SB
+ *
+ * @author Victor Kryzhanivskyi
+ */
 package victor.kryz.hr.sb.tracing.specific;
 
 import java.sql.SQLException;
 import java.text.DateFormat;
 
 import victor.kryz.hr.sb.tracing.ObjectTracer;
-import victor.kryz.hrutils.ents.HrUtilsJobHistoryEntryT;
+import victor.kryz.hrutils.generated.ents.HrUtilsJobHistoryEntryT;
 
 public class HrUtilsJobHistoryEntryT_Tracer implements ObjectTracer<HrUtilsJobHistoryEntryT>{
 	@Override

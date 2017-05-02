@@ -1,3 +1,8 @@
+/**
+ * HRUtils-SB
+ *
+ * @author Victor Kryzhanivskyi
+ */
 package victor.kryz.hr.sb.repositories;
 import java.math.BigDecimal;
 import java.sql.Connection;
@@ -49,15 +54,14 @@ import victor.kryz.hr.sb.DbPkgConfig;
 import victor.kryz.hr.sb.ents.DepartmentStatisticT;
 import victor.kryz.hr.sb.utils.Converter;
 import victor.kryz.hr.sb.utils.StmtCache;
-import victor.kryz.hrutils.ents.DepartmentDescrT;
-import victor.kryz.hrutils.ents.HrUtilsDepartmentsEntryT;
-import victor.kryz.hrutils.ents.HrUtilsLocationsEntryT;
-import victor.kryz.hrutils.ents.HrutilsCountriesT;
-import victor.kryz.hrutils.ents.HrUtilsDepartmentsEntryT;
-import victor.kryz.hrutils.ents.HrutilsDepartmentsMapT;
-import victor.kryz.hrutils.ents.HrutilsDepartmentsT;
-import victor.kryz.hrutils.ents.HrutilsLocationsT;
-import victor.kryz.hrutils.ents.StringListT;
+import victor.kryz.hrutils.generated.ents.DepartmentDescrT;
+import victor.kryz.hrutils.generated.ents.HrUtilsDepartmentsEntryT;
+import victor.kryz.hrutils.generated.ents.HrUtilsLocationsEntryT;
+import victor.kryz.hrutils.generated.ents.HrutilsCountriesT;
+import victor.kryz.hrutils.generated.ents.HrutilsDepartmentsMapT;
+import victor.kryz.hrutils.generated.ents.HrutilsDepartmentsT;
+import victor.kryz.hrutils.generated.ents.HrutilsLocationsT;
+import victor.kryz.hrutils.generated.ents.StringListT;
 
 import org.springframework.jdbc.object.StoredProcedure;
 
@@ -83,9 +87,10 @@ public class DepartmentsRepository
 	
 	
 	/**
+	 * Calls package procedure HR_UTILS.GET_DEPARTMENTS()
 	 * 
-	 * @param locationId
-	 * @return
+	 * @param locationId - location identifier
+	 * @return list of HrUtilsDepartmentsEntryT objects
 	 * @throws SQLException
 	 */
 	@Transactional(isolation=Isolation.READ_COMMITTED, propagation=Propagation.REQUIRED)
@@ -106,9 +111,11 @@ public class DepartmentsRepository
 	}
 	
 	/**
+	 * Calls package function HR_UTILS.GET_DEPARTMENT_STAT()
 	 * 
-	 * @param depId
-	 * @throws SQLException
+	 * @param depId - department identifier
+	 * @return list of DepartmentStatisticT objects
+	 * @throws SQLException  
 	 */
 	@SuppressWarnings("unchecked")
 	@Transactional(isolation=Isolation.READ_COMMITTED, propagation=Propagation.REQUIRED)

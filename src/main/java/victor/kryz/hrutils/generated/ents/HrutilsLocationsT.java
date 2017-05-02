@@ -1,4 +1,4 @@
-package victor.kryz.hrutils.ents;
+package victor.kryz.hrutils.generated.ents;
 
 import java.sql.SQLException;
 import java.sql.Connection;
@@ -10,26 +10,26 @@ import oracle.sql.ARRAY;
 import oracle.sql.ArrayDescriptor;
 import oracle.jpub.runtime.MutableArray;
 
-public class HrutilsJobHistoryT implements ORAData, ORADataFactory
+public class HrutilsLocationsT implements ORAData, ORADataFactory
 {
-  public static final String _SQL_NAME = "HR_UTILS.JOB_HISTORY_T";
+  public static final String _SQL_NAME = "HR_UTILS.LOCATIONS_T";
   public static final int _SQL_TYPECODE = OracleTypes.ARRAY;
 
   MutableArray _array;
 
-private static final HrutilsJobHistoryT _HrutilsJobHistoryTFactory = new HrutilsJobHistoryT();
+private static final HrutilsLocationsT _HrutilsLocationsTFactory = new HrutilsLocationsT();
 
   public static ORADataFactory getORADataFactory()
-  { return _HrutilsJobHistoryTFactory; }
+  { return _HrutilsLocationsTFactory; }
   /* constructors */
-  public HrutilsJobHistoryT()
+  public HrutilsLocationsT()
   {
-    this((HrUtilsJobHistoryEntryT[])null);
+    this((HrUtilsLocationsEntryT[])null);
   }
 
-  public HrutilsJobHistoryT(HrUtilsJobHistoryEntryT[] a)
+  public HrutilsLocationsT(HrUtilsLocationsEntryT[] a)
   {
-    _array = new MutableArray(2002, a, HrUtilsJobHistoryEntryT.getORADataFactory());
+    _array = new MutableArray(2002, a, HrUtilsLocationsEntryT.getORADataFactory());
   }
 
   /* ORAData interface */
@@ -45,8 +45,8 @@ private static final HrutilsJobHistoryT _HrutilsJobHistoryTFactory = new Hrutils
   public ORAData create(Datum d, int sqlType) throws SQLException
   {
     if (d == null) return null; 
-    HrutilsJobHistoryT a = new HrutilsJobHistoryT();
-    a._array = new MutableArray(2002, (ARRAY) d, HrUtilsJobHistoryEntryT.getORADataFactory());
+    HrutilsLocationsT a = new HrutilsLocationsT();
+    a._array = new MutableArray(2002, (ARRAY) d, HrUtilsLocationsEntryT.getORADataFactory());
     return a;
   }
 
@@ -71,34 +71,34 @@ private static final HrutilsJobHistoryT _HrutilsJobHistoryTFactory = new Hrutils
   }
 
   /* array accessor methods */
-  public HrUtilsJobHistoryEntryT[] getArray() throws SQLException
+  public HrUtilsLocationsEntryT[] getArray() throws SQLException
   {
-    return (HrUtilsJobHistoryEntryT[]) _array.getObjectArray(
-      new HrUtilsJobHistoryEntryT[_array.length()]);
+    return (HrUtilsLocationsEntryT[]) _array.getObjectArray(
+      new HrUtilsLocationsEntryT[_array.length()]);
   }
 
-  public HrUtilsJobHistoryEntryT[] getArray(long index, int count) throws SQLException
+  public HrUtilsLocationsEntryT[] getArray(long index, int count) throws SQLException
   {
-    return (HrUtilsJobHistoryEntryT[]) _array.getObjectArray(index,
-      new HrUtilsJobHistoryEntryT[_array.sliceLength(index, count)]);
+    return (HrUtilsLocationsEntryT[]) _array.getObjectArray(index,
+      new HrUtilsLocationsEntryT[_array.sliceLength(index, count)]);
   }
 
-  public void setArray(HrUtilsJobHistoryEntryT[] a) throws SQLException
+  public void setArray(HrUtilsLocationsEntryT[] a) throws SQLException
   {
     _array.setObjectArray(a);
   }
 
-  public void setArray(HrUtilsJobHistoryEntryT[] a, long index) throws SQLException
+  public void setArray(HrUtilsLocationsEntryT[] a, long index) throws SQLException
   {
     _array.setObjectArray(a, index);
   }
 
-  public HrUtilsJobHistoryEntryT getElement(long index) throws SQLException
+  public HrUtilsLocationsEntryT getElement(long index) throws SQLException
   {
-    return (HrUtilsJobHistoryEntryT) _array.getObjectElement(index);
+    return (HrUtilsLocationsEntryT) _array.getObjectElement(index);
   }
 
-  public void setElement(HrUtilsJobHistoryEntryT a, long index) throws SQLException
+  public void setElement(HrUtilsLocationsEntryT a, long index) throws SQLException
   {
     _array.setObjectElement(a, index);
   }

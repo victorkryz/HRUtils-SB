@@ -1,8 +1,13 @@
+/**
+ * HRUtils-SB
+ *
+ * @author Victor Kryzhanivskyi
+ */
 package victor.kryz.hr.sb.ents;
 
 import java.math.BigDecimal;
 
-import victor.kryz.hrutils.ents.DepartmentDescrT;
+import victor.kryz.hrutils.generated.ents.DepartmentDescrT;
 
 public class DepartmentStatisticT {
 	

@@ -1,4 +1,4 @@
-package victor.kryz.hrutils.ents;
+package victor.kryz.hrutils.generated.ents;
 
 import java.sql.SQLException;
 import java.sql.Connection;
@@ -10,24 +10,25 @@ import oracle.sql.ARRAY;
 import oracle.sql.ArrayDescriptor;
 import oracle.jpub.runtime.MutableArray;
 
-public class HrutilsDepartmentsT implements ORAData, ORADataFactory
+public class HrutilsDepartmentsMapT implements ORAData, ORADataFactory
 {
-  public static final String _SQL_NAME = "HR_UTILS.DEPARTMENTS_T";
+//  public static final String _SQL_NAME = "HR_UTILS.DEPARTMENTS_MAP_T";
+  public static final String _SQL_NAME = "HR_UTILS.DEP_MAP_T";
   public static final int _SQL_TYPECODE = OracleTypes.ARRAY;
 
   MutableArray _array;
 
-private static final HrutilsDepartmentsT _HrutilsDepartmentsTFactory = new HrutilsDepartmentsT();
+private static final HrutilsDepartmentsMapT _HrutilsDepartmentsMapTFactory = new HrutilsDepartmentsMapT();
 
   public static ORADataFactory getORADataFactory()
-  { return _HrutilsDepartmentsTFactory; }
+  { return _HrutilsDepartmentsMapTFactory; }
   /* constructors */
-  public HrutilsDepartmentsT()
+  public HrutilsDepartmentsMapT()
   {
     this((HrUtilsDepartmentsEntryT[])null);
   }
 
-  public HrutilsDepartmentsT(HrUtilsDepartmentsEntryT[] a)
+  public HrutilsDepartmentsMapT(HrUtilsDepartmentsEntryT[] a)
   {
     _array = new MutableArray(2002, a, HrUtilsDepartmentsEntryT.getORADataFactory());
   }
@@ -45,7 +46,7 @@ private static final HrutilsDepartmentsT _HrutilsDepartmentsTFactory = new Hruti
   public ORAData create(Datum d, int sqlType) throws SQLException
   {
     if (d == null) return null; 
-    HrutilsDepartmentsT a = new HrutilsDepartmentsT();
+    HrutilsDepartmentsMapT a = new HrutilsDepartmentsMapT();
     a._array = new MutableArray(2002, (ARRAY) d, HrUtilsDepartmentsEntryT.getORADataFactory());
     return a;
   }

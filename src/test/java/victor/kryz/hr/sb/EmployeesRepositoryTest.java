@@ -2,15 +2,14 @@ package victor.kryz.hr.sb;
 
 import static org.junit.Assert.*;
 
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 import java.util.concurrent.ExecutionException;
-import java.util.function.Function;
 import java.util.stream.Collectors;
 
 import org.junit.After;
@@ -32,15 +31,16 @@ import org.springframework.transaction.annotation.Transactional;
 import com.google.common.base.Joiner;
 
 import victor.kryz.hr.sb.ents.EmployeeBriefEntryT;
+import victor.kryz.hr.sb.repositories.DepartmentsRepository;
 import victor.kryz.hr.sb.repositories.EmployeesRepository;
-import victor.kryz.hr.sb.repositories.RegionsRepository;
+import victor.kryz.hr.sb.repositories.LocationsRepository;
 import victor.kryz.hr.sb.tracing.GetTracer;
 import victor.kryz.hr.sb.tracing.ObjectTracer;
-import victor.kryz.hr.sb.tracing.Tracer;
-import victor.kryz.hrutils.ents.EmployeeDescrT;
-import victor.kryz.hrutils.ents.EmployeeSetT;
-import victor.kryz.hrutils.ents.HrUtilsJobHistoryEntryT;
-import victor.kryz.hrutils.ents.HrUtilsRegionsEntryT;
+import victor.kryz.hr.sb.utils.ThrowableWrapper;
+import victor.kryz.hrutils.generated.ents.EmployeeDescrT;
+import victor.kryz.hrutils.generated.ents.HrUtilsDepartmentsEntryT;
+import victor.kryz.hrutils.generated.ents.HrUtilsJobHistoryEntryT;
+import victor.kryz.hrutils.generated.ents.HrUtilsLocationsEntryT;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -51,6 +51,11 @@ public class EmployeesRepositoryTest
 	
 	@Autowired
 	EmployeesRepository emplRep;
+	@Autowired
+	DepartmentsRepository repDepartments;
+	@Autowired
+	LocationsRepository repLocations;
+
 	
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
@@ -73,18 +78,21 @@ public class EmployeesRepositoryTest
 	}
 	
 	
-	
 	@Test
 	@Rollback(true)
 	@Transactional(isolation=Isolation.READ_COMMITTED, propagation=Propagation.REQUIRED)
 	public void addRemoveEmployees() throws SQLException, ExecutionException 
 	{
-		ArrayList<EmployeeDescrT> employees = new ArrayList<EmployeeDescrT>();
+		final HrUtilsDepartmentsEntryT targetDep = getTargetDepartment("Texas", "IT");
 		
-		employees.add(new EmployeeDescrT(null, "Forrest", "Gump", "fgumb", "575.111.222", BigDecimal.valueOf(60), 
-						  			 	null, "IT_PROG", null, BigDecimal.valueOf(25520), BigDecimal.valueOf(103)));
-		employees.add(new EmployeeDescrT(null, "Darth", "Vader", "dvader", "575.222.333", BigDecimal.valueOf(60), 
-	  			 					 	null, "IT_PROG", null, BigDecimal.valueOf(250000), BigDecimal.valueOf(103)));
+		final BigDecimal itDepId = targetDep.getDepartment().getDepId();
+		final BigDecimal itDepMngrId = targetDep.getManagerId();
+		
+		ArrayList<EmployeeDescrT> employees = new ArrayList<EmployeeDescrT>();
+		employees.add(new EmployeeDescrT(null, "Forrest", "Gump", "fgumb", "575.111.222", itDepId, 
+						  			 	null, "IT_PROG", null, BigDecimal.valueOf(25520), itDepMngrId));
+		employees.add(new EmployeeDescrT(null, "Darth", "Vader", "dvader", "575.222.333", itDepId, 
+	  			 					 	null, "IT_PROG", null, BigDecimal.valueOf(250000), itDepMngrId));
 		
 		emplRep.addEmployees(employees);
 		
@@ -118,7 +126,7 @@ public class EmployeesRepositoryTest
 	
 	@Test
 	@Transactional(isolation=Isolation.READ_COMMITTED, propagation=Propagation.REQUIRED)
-	public void getEmployeesWithJobHistory() throws SQLException, ExecutionException 
+	public void getEmployeesWithJobHistory() throws SQLException, ExecutionException, IOException 
 	{
 		List<EmployeeBriefEntryT> ents = emplRep.findEmployeesWithJobHistory(Optional.empty());
 		
@@ -141,5 +149,33 @@ public class EmployeesRepositoryTest
 			
 			emplTracer.putLn("----------------------", LOG);
 		}
+	}
+	
+	private HrUtilsDepartmentsEntryT getTargetDepartment(String strLocationName, String strDepartmentName) throws SQLException
+	{
+		BigDecimal locationId = getLocationId(strLocationName);
+		List<HrUtilsDepartmentsEntryT> ents = repDepartments.findDepartmentsByLocationId(locationId);
+		
+		List<HrUtilsDepartmentsEntryT> filteredEnts = ents.stream()
+		 			.filter(item -> 0 == 
+		 							ThrowableWrapper.wrap(()-> item.getDepartment().getDepName()).
+		 															compareTo(strDepartmentName))
+		 			.collect(Collectors.toList());
+		
+		assertFalse(filteredEnts.isEmpty());
+		
+		
+		return filteredEnts.get(0);
+	}
+	
+	private BigDecimal getLocationId(String strLocationName) throws SQLException
+	{
+		List<String> namesFilterList = Arrays.asList(new String[] {strLocationName});
+		List<HrUtilsLocationsEntryT> ents = repLocations.findLocationsByNames(namesFilterList);
+		
+		assertTrue(ents.size() == namesFilterList.size());
+		assertEquals(ents.get(0).getStateProvince(), namesFilterList.get(0));
+		
+		return ents.get(0).getId();
 	}
 }

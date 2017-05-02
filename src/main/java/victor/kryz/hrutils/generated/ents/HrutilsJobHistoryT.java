@@ -1,4 +1,4 @@
-package victor.kryz.hrutils.ents;
+package victor.kryz.hrutils.generated.ents;
 
 import java.sql.SQLException;
 import java.sql.Connection;
@@ -10,26 +10,26 @@ import oracle.sql.ARRAY;
 import oracle.sql.ArrayDescriptor;
 import oracle.jpub.runtime.MutableArray;
 
-public class HrutilsRegionsT implements ORAData, ORADataFactory
+public class HrutilsJobHistoryT implements ORAData, ORADataFactory
 {
-  public static final String _SQL_NAME = "HR_UTILS.REGIONS_T";
+  public static final String _SQL_NAME = "HR_UTILS.JOB_HISTORY_T";
   public static final int _SQL_TYPECODE = OracleTypes.ARRAY;
 
   MutableArray _array;
 
-private static final HrutilsRegionsT _HrutilsRegionsTFactory = new HrutilsRegionsT();
+private static final HrutilsJobHistoryT _HrutilsJobHistoryTFactory = new HrutilsJobHistoryT();
 
   public static ORADataFactory getORADataFactory()
-  { return _HrutilsRegionsTFactory; }
+  { return _HrutilsJobHistoryTFactory; }
   /* constructors */
-  public HrutilsRegionsT()
+  public HrutilsJobHistoryT()
   {
-    this((HrUtilsRegionsEntryT[])null);
+    this((HrUtilsJobHistoryEntryT[])null);
   }
 
-  public HrutilsRegionsT(HrUtilsRegionsEntryT[] a)
+  public HrutilsJobHistoryT(HrUtilsJobHistoryEntryT[] a)
   {
-    _array = new MutableArray(2002, a, HrUtilsRegionsEntryT.getORADataFactory());
+    _array = new MutableArray(2002, a, HrUtilsJobHistoryEntryT.getORADataFactory());
   }
 
   /* ORAData interface */
@@ -45,8 +45,8 @@ private static final HrutilsRegionsT _HrutilsRegionsTFactory = new HrutilsRegion
   public ORAData create(Datum d, int sqlType) throws SQLException
   {
     if (d == null) return null; 
-    HrutilsRegionsT a = new HrutilsRegionsT();
-    a._array = new MutableArray(2002, (ARRAY) d, HrUtilsRegionsEntryT.getORADataFactory());
+    HrutilsJobHistoryT a = new HrutilsJobHistoryT();
+    a._array = new MutableArray(2002, (ARRAY) d, HrUtilsJobHistoryEntryT.getORADataFactory());
     return a;
   }
 
@@ -71,34 +71,34 @@ private static final HrutilsRegionsT _HrutilsRegionsTFactory = new HrutilsRegion
   }
 
   /* array accessor methods */
-  public HrUtilsRegionsEntryT[] getArray() throws SQLException
+  public HrUtilsJobHistoryEntryT[] getArray() throws SQLException
   {
-    return (HrUtilsRegionsEntryT[]) _array.getObjectArray(
-      new HrUtilsRegionsEntryT[_array.length()]);
+    return (HrUtilsJobHistoryEntryT[]) _array.getObjectArray(
+      new HrUtilsJobHistoryEntryT[_array.length()]);
   }
 
-  public HrUtilsRegionsEntryT[] getArray(long index, int count) throws SQLException
+  public HrUtilsJobHistoryEntryT[] getArray(long index, int count) throws SQLException
   {
-    return (HrUtilsRegionsEntryT[]) _array.getObjectArray(index,
-      new HrUtilsRegionsEntryT[_array.sliceLength(index, count)]);
+    return (HrUtilsJobHistoryEntryT[]) _array.getObjectArray(index,
+      new HrUtilsJobHistoryEntryT[_array.sliceLength(index, count)]);
   }
 
-  public void setArray(HrUtilsRegionsEntryT[] a) throws SQLException
+  public void setArray(HrUtilsJobHistoryEntryT[] a) throws SQLException
   {
     _array.setObjectArray(a);
   }
 
-  public void setArray(HrUtilsRegionsEntryT[] a, long index) throws SQLException
+  public void setArray(HrUtilsJobHistoryEntryT[] a, long index) throws SQLException
   {
     _array.setObjectArray(a, index);
   }
 
-  public HrUtilsRegionsEntryT getElement(long index) throws SQLException
+  public HrUtilsJobHistoryEntryT getElement(long index) throws SQLException
   {
-    return (HrUtilsRegionsEntryT) _array.getObjectElement(index);
+    return (HrUtilsJobHistoryEntryT) _array.getObjectElement(index);
   }
 
-  public void setElement(HrUtilsRegionsEntryT a, long index) throws SQLException
+  public void setElement(HrUtilsJobHistoryEntryT a, long index) throws SQLException
   {
     _array.setObjectElement(a, index);
   }

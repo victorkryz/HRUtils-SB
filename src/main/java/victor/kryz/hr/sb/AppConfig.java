@@ -1,3 +1,8 @@
+/**
+ * HRUtils-SB
+ *
+ * @author Victor Kryzhanivskyi
+ */
 package victor.kryz.hr.sb;
 
 import javax.sql.DataSource;
@@ -32,14 +37,4 @@ public class AppConfig{
     
     AppConfig() {
     }
-    
-//    @Bean
-//    public DataSource dataSource() {
-//        SimpleDriverDataSource simpleDriverDataSource = new SimpleDriverDataSource();
-//        simpleDriverDataSource.setPassword(this.password);
-//        simpleDriverDataSource.setUrl(this.url);
-//        simpleDriverDataSource.setUsername(this.user);
-//        simpleDriverDataSource.setDriverClass(oracle.jdbc.driver.OracleDriver.class);
-//        return simpleDriverDataSource;
-//    }
 }

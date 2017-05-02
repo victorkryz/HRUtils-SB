@@ -1,4 +1,4 @@
-package victor.kryz.hrutils.ents;
+package victor.kryz.hrutils.generated.ents;
 
 import java.sql.SQLException;
 import java.sql.Connection;
@@ -28,8 +28,8 @@ public class EmployeeShortDescrT implements ORAData, ORADataFactory
   protected static synchronized void init()
   { if (!_initialized)
     { _initialized=true;
-      _map.put("EMPLOYEE_SHORT_DESCR_T",victor.kryz.hrutils.ents.EmployeeShortDescrT.getORADataFactory());
-      _map.put("EMPLOYEE_DESCR_T",victor.kryz.hrutils.ents.EmployeeDescrT.getORADataFactory());
+      _map.put("EMPLOYEE_SHORT_DESCR_T",victor.kryz.hrutils.generated.ents.EmployeeShortDescrT.getORADataFactory());
+      _map.put("EMPLOYEE_DESCR_T",victor.kryz.hrutils.generated.ents.EmployeeDescrT.getORADataFactory());
   } }
 
   /* constructors */

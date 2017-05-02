@@ -1,10 +1,15 @@
+/**
+ * HRUtils-SB
+ *
+ * @author Victor Kryzhanivskyi
+ */
 package victor.kryz.hr.sb.utils;
 
 import java.sql.SQLException;
 import java.util.Arrays;
 import java.util.List;
 
-import victor.kryz.hrutils.ents.StringListT;
+import victor.kryz.hrutils.generated.ents.StringListT;
 
 public class Converter {
 

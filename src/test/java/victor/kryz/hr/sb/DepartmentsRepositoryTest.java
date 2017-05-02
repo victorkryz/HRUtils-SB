@@ -34,9 +34,9 @@ import victor.kryz.hr.sb.repositories.LocationsRepository;
 import victor.kryz.hr.sb.tracing.GetTracer;
 import victor.kryz.hr.sb.tracing.Tracer;
 import victor.kryz.hr.sb.utils.ThrowableWrapper;
-import victor.kryz.hrutils.ents.HrUtilsDepartmentsEntryT;
-import victor.kryz.hrutils.ents.HrUtilsLocationsEntryT;
-import victor.kryz.hrutils.ents.HrUtilsRegionsEntryT;
+import victor.kryz.hrutils.generated.ents.HrUtilsDepartmentsEntryT;
+import victor.kryz.hrutils.generated.ents.HrUtilsLocationsEntryT;
+import victor.kryz.hrutils.generated.ents.HrUtilsRegionsEntryT;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest

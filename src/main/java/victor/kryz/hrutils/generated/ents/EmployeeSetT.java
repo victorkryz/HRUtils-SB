@@ -1,4 +1,4 @@
-package victor.kryz.hrutils.ents;
+package victor.kryz.hrutils.generated.ents;
 
 import java.sql.SQLException;
 import java.sql.Connection;
@@ -10,26 +10,26 @@ import oracle.sql.ARRAY;
 import oracle.sql.ArrayDescriptor;
 import oracle.jpub.runtime.MutableArray;
 
-public class StringListT implements ORAData, ORADataFactory
+public class EmployeeSetT implements ORAData, ORADataFactory
 {
-  public static final String _SQL_NAME = "STRING_LIST_T";
+  public static final String _SQL_NAME = "EMPLOYEE_SET_T";
   public static final int _SQL_TYPECODE = OracleTypes.ARRAY;
 
   MutableArray _array;
 
-private static final StringListT _StringListTFactory = new StringListT();
+private static final EmployeeSetT _EmployeeSetTFactory = new EmployeeSetT();
 
   public static ORADataFactory getORADataFactory()
-  { return _StringListTFactory; }
+  { return _EmployeeSetTFactory; }
   /* constructors */
-  public StringListT()
+  public EmployeeSetT()
   {
-    this((String[])null);
+    this((EmployeeDescrT[])null);
   }
 
-  public StringListT(String[] a)
+  public EmployeeSetT(EmployeeDescrT[] a)
   {
-    _array = new MutableArray(12, a, null);
+    _array = new MutableArray(2002, a, EmployeeDescrT.getORADataFactory());
   }
 
   /* ORAData interface */
@@ -45,8 +45,8 @@ private static final StringListT _StringListTFactory = new StringListT();
   public ORAData create(Datum d, int sqlType) throws SQLException
   {
     if (d == null) return null; 
-    StringListT a = new StringListT();
-    a._array = new MutableArray(12, (ARRAY) d, null);
+    EmployeeSetT a = new EmployeeSetT();
+    a._array = new MutableArray(2002, (ARRAY) d, EmployeeDescrT.getORADataFactory());
     return a;
   }
 
@@ -71,32 +71,34 @@ private static final StringListT _StringListTFactory = new StringListT();
   }
 
   /* array accessor methods */
-  public String[] getArray() throws SQLException
+  public EmployeeDescrT[] getArray() throws SQLException
   {
-    return (String[]) _array.getObjectArray();
+    return (EmployeeDescrT[]) _array.getObjectArray(
+      new EmployeeDescrT[_array.length()]);
   }
 
-  public String[] getArray(long index, int count) throws SQLException
+  public EmployeeDescrT[] getArray(long index, int count) throws SQLException
   {
-    return (String[]) _array.getObjectArray(index, count);
+    return (EmployeeDescrT[]) _array.getObjectArray(index,
+      new EmployeeDescrT[_array.sliceLength(index, count)]);
   }
 
-  public void setArray(String[] a) throws SQLException
+  public void setArray(EmployeeDescrT[] a) throws SQLException
   {
     _array.setObjectArray(a);
   }
 
-  public void setArray(String[] a, long index) throws SQLException
+  public void setArray(EmployeeDescrT[] a, long index) throws SQLException
   {
     _array.setObjectArray(a, index);
   }
 
-  public String getElement(long index) throws SQLException
+  public EmployeeDescrT getElement(long index) throws SQLException
   {
-    return (String) _array.getObjectElement(index);
+    return (EmployeeDescrT) _array.getObjectElement(index);
   }
 
-  public void setElement(String a, long index) throws SQLException
+  public void setElement(EmployeeDescrT a, long index) throws SQLException
   {
     _array.setObjectElement(a, index);
   }

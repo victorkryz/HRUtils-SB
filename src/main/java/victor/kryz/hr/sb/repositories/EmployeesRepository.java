@@ -1,7 +1,5 @@
 /**
- * HRUtils-SB
- *
- * @author Victor Kryzhanivskyi
+ * Project "HRUtils-SB"
  */
 package victor.kryz.hr.sb.repositories;
 
@@ -35,6 +33,11 @@ import victor.kryz.hrutils.generated.ents.HrUtilsJobHistoryEntryT;
 import victor.kryz.hrutils.generated.ents.HrutilsJobHistoryT;
 import victor.kryz.hrutils.generated.ents.NumberListT;
 
+/**
+ * Repository exposes interface to "Employee" entity
+ *    
+ * @author Victor Kryzhanivskyi
+ */
 @Repository
 public class EmployeesRepository {
 	
@@ -79,7 +82,7 @@ public class EmployeesRepository {
 	}
 	
 	/**
-	 * Calls procedure HR_UTILS.GET_EMPLOYEES_WITH_JOB_HISTORY()
+	 * Calls function HR_UTILS.GET_EMPLOYEES_WITH_JOB_HISTORY()
 	 * 
 	 * @param depId - department identifier
 	 * @return list of EmployeeBriefEntryT objects

@@ -1,7 +1,5 @@
 /**
- * HRUtils-SB
- *
- * @author Victor Kryzhanivskyi
+ * Project "HRUtils-SB"
  */
 package victor.kryz.hr.sb.repositories;
 import java.sql.SQLException;
@@ -32,6 +30,11 @@ import victor.kryz.hrutils.generated.ents.StringListT;
 
 import org.springframework.jdbc.core.simple.SimpleJdbcCall;
 
+/**
+ * Repository exposes interface to "Location" entity
+ *    
+ * @author Victor Kryzhanivskyi
+ */
 @Repository
 public class LocationsRepository 
 {
@@ -48,9 +51,10 @@ public class LocationsRepository
 	final static String PARAM_NAMES_FILTER = "p_names_filter";
 	
 	/**
+	 * Calls package function HR_UTILS.GET_LOCATIONS()
 	 * 
-	 * @param strCountryId
-	 * @return
+	 * @param strCountryId - country identifier
+	 * @return list of HrUtilsLocationsEntryT objects
 	 * @throws SQLException
 	 */
 	@Transactional(isolation=Isolation.READ_COMMITTED, propagation=Propagation.REQUIRED)
@@ -86,9 +90,10 @@ public class LocationsRepository
 	}
 	
 	/**
+	 * Calls package function HR_UTILS.GET_LOCATIONS()
 	 * 
-	 * @param namesFilter
-	 * @return
+	 * @param namesFilter - list of country names
+	 * @return list of HrUtilsLocationsEntryT objects
 	 * @throws SQLException
 	 */
 	@Transactional(isolation=Isolation.READ_COMMITTED, propagation=Propagation.REQUIRED)

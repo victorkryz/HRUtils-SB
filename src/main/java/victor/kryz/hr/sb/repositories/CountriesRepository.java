@@ -1,7 +1,5 @@
 /**
- * HRUtils-SB
- *
- * @author Victor Kryzhanivskyi
+ * Project "HRUtils-SB"
  */
 package victor.kryz.hr.sb.repositories;
 import java.math.BigDecimal;
@@ -28,6 +26,11 @@ import victor.kryz.hrutils.generated.ents.HrutilsCountriesT;
 
 import org.springframework.jdbc.core.simple.SimpleJdbcCall;
 
+/**
+ * Repository exposes interface to "Country" entity
+ *    
+ * @author Victor Kryzhanivskyi
+ */
 @Repository
 public class CountriesRepository 
 {

@@ -1,5 +1,5 @@
 /**
- * HRUtils-SB
+ * Project "HRUtils-SB"
  *
  * @author Victor Kryzhanivskyi
  */
@@ -34,12 +34,6 @@ public class GetTracer {
 		    	.maximumSize(20)
 		    	.build();
 	
-	/*
-	public static <T> ObjectTracer<T> getByClass(Class<T> tracerClass) throws ExecutionException  {
-		throw new RuntimeException("Tracer by class " + tracerClass.getName() +" not found");
-	}
-	*/
-
 	@SuppressWarnings("unchecked")
 	public static <T> ObjectTracer<T> getForClass(Class<T> objectClassFor) throws ExecutionException 
 	{

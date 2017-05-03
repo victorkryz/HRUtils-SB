@@ -1,7 +1,5 @@
 /**
- * HRUtils-SB
- *
- * @author Victor Kryzhanivskyi
+ * Project "HRUtils-SB"
  */
 package victor.kryz.hr.sb.repositories;
 
@@ -25,6 +23,11 @@ import org.springframework.transaction.annotation.Transactional;
 import com.google.common.base.Charsets;
 import com.google.common.io.CharStreams;
 
+/**
+ * Repository intended for various info-functions
+ * 
+ * @author Victor Kryzhanivskyi
+ */
 @Repository
 public class InfoRepository {
 	

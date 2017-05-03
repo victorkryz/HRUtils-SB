@@ -1,6 +1,6 @@
 /**
- * HRUtils-SB
- *
+ * Project "HRUtils-SB"
+ * 
  * @author Victor Kryzhanivskyi
  */
 package victor.kryz.hr.sb.utils;

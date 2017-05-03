@@ -1,5 +1,5 @@
 /**
- * HRUtils-SB
+ * Project "HRUtils-SB"
  *
  * @author Victor Kryzhanivskyi
  */

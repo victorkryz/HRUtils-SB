@@ -1,7 +1,5 @@
 /**
- * HRUtils-SB
- *
- * @author Victor Kryzhanivskyi
+ * Project "HRUtils-SB"
  */
 package victor.kryz.hr.sb.repositories;
 import java.math.BigDecimal;
@@ -65,6 +63,11 @@ import victor.kryz.hrutils.generated.ents.StringListT;
 
 import org.springframework.jdbc.object.StoredProcedure;
 
+/**
+ * Repository exposes interface to "Department" entity
+ *    
+ * @author Victor Kryzhanivskyi
+ */
 @Repository
 public class DepartmentsRepository 
 {

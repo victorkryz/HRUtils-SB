@@ -1,7 +1,5 @@
 /**
- * HRUtils-SB
- *
- * @author Victor Kryzhanivskyi
+ * Project "HRUtils-SB"
  */
 package victor.kryz.hr.sb.repositories;
 import java.sql.SQLException;
@@ -31,6 +29,11 @@ import victor.kryz.hrutils.generated.ents.StringListT;
 
 import org.springframework.jdbc.core.simple.SimpleJdbcCall;
 
+/**
+ * Repository exposes interface to "Region" entity
+ *    
+ * @author Victor Kryzhanivskyi
+ */
 @Repository
 public class RegionsRepository 
 {
@@ -42,9 +45,10 @@ public class RegionsRepository
 	private StmtCache<SimpleJdbcCall> simpJdbcCallsCache;
 	
 	/**
+	 * Calls package function HR_UTILS.GET_REGIONS()
 	 * 
-	 * @param namesFilter
-	 * @return 
+	 * @param namesFilter - list of region names
+	 * @return array of HrUtilsRegionsEntryT objects
 	 * @throws SQLException
 	 */
 	@Transactional(isolation=Isolation.READ_COMMITTED, propagation=Propagation.REQUIRED)

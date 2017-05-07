@@ -40,12 +40,10 @@ Oracle Database 12c Enterprise Edition Release 12.1.0.2.0.
 
 
 ---
+><b id="f1">1</b> There's some specific with getting oracle JDBC drivers from the Oracle Maven Repository
+>(see topic [*How to get Oracle JDBC drivers and UCP from Oracle Maven Repository*](https://blogs.oracle.com/dev2dev/entry/how_to_get_oracle_jdbc)).
 
-<b id="f1">1</b>
-There's some specific with getting oracle JDBC drivers from the Oracle Maven Repository
-(see topic [*How to get Oracle JDBC drivers and UCP from Oracle Maven Repository*](https://blogs.oracle.com/dev2dev/entry/how_to_get_oracle_jdbc)).
-
- You might download Oracle JDBC Drivers directly [*here*](http://www.oracle.com/technetwork/database/features/jdbc/jdbc-drivers-12c-download-1958347.html) and install them into maven repository using maven command line, e.g: [↩](#a1)
+> You might download Oracle JDBC Drivers directly [*here*](http://www.oracle.com/technetwork/database/features/jdbc/jdbc-drivers-12c-download-1958347.html) and install them into maven repository using maven command line, e.g: [↩](#a1)
 
     mvn install:install-file -Dfile=ojdbc6.jar -DgroupId=com.oracle.jdbc -DartifactId=ojdbc6 -Dversion=11.2.0.4 -Dpackaging=jar
     mvn install:install-file -Dfile=ojdbc7_g.jar -DgroupId=com.oracle.jdbc -DartifactId=ojdbc7 -Dversion=12.1.0.2 -Dpackaging=jar 

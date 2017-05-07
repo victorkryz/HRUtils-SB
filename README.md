@@ -26,8 +26,16 @@ Use the next commands:
 - to build project: `mvnw clean compile -o`
 - to start unit tests: `mvnw test -o`
 
+Before starting tests, do configure actual Oracle connection in file "src\main\resources\META-INF\spring\database.properties":
+
+```properties
+ database.url=jdbc:oracle:thin:@//host/service
+ database.username=hr
+ database.password=...
+ ```
+
 > There's some specific with getting oracle JDBC drivers from the Oracle Maven Repository 
-<sup id="a1">[2](#f1)</sup>
+<sup id="a2">[2](#f1)</sup>
 
 
 
@@ -40,13 +48,13 @@ Oracle Database 12c Enterprise Edition Release 12.1.0.2.0.
 
 
 ---
-><b id="f1">1</b> Consequently, some set of the database calls within the project does not work correctly with Oracle servers version lower 12.1.
+><b id="f1">1</b> Consequently, some set of the database calls within the project does not work correctly with Oracle servers version lower 12.1. [↩](#a1)
 
 
-><b id="f1">2</b> There's some specific with getting oracle JDBC drivers from the Oracle Maven Repository
+><b id="f2">2</b> There's some specific with getting oracle JDBC drivers from the Oracle Maven Repository
 >(see topic [*How to get Oracle JDBC drivers and UCP from Oracle Maven Repository*](https://blogs.oracle.com/dev2dev/entry/how_to_get_oracle_jdbc)).
 
-> You might download Oracle JDBC Drivers directly [*here*](http://www.oracle.com/technetwork/database/features/jdbc/jdbc-drivers-12c-download-1958347.html) and install them into maven repository using maven command line, e.g: [↩](#a1)
+> You might download Oracle JDBC Drivers directly [*here*](http://www.oracle.com/technetwork/database/features/jdbc/jdbc-drivers-12c-download-1958347.html) and install them into maven repository using maven command line, e.g: [↩](#a2)
 
     mvn install:install-file -Dfile=ojdbc6.jar -DgroupId=com.oracle.jdbc -DartifactId=ojdbc6 -Dversion=11.2.0.4 -Dpackaging=jar
     mvn install:install-file -Dfile=ojdbc7_g.jar -DgroupId=com.oracle.jdbc -DartifactId=ojdbc7 -Dversion=12.1.0.2 -Dpackaging=jar 

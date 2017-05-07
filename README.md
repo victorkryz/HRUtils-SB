@@ -7,7 +7,7 @@ to call *HR-Utils PL/SQL package* procedures and functions and processing of the
 
 One of the features is an operating on PL/SQL packages user types that become available since
 Oracle server version 12.1 (see topic [*About Using PL/SQL Types*](http://docs.oracle.com/database/122/JJDBC/JDBC-reference-information.htm#GUID-E77C2AE8-E22B-48BF-A4CB-010CBC8FE7C2) 
-of *'Oracle Database JDBC Developer's Guide'*). That's why some set of the database calls within the project will not work well with Oracle servers version lower 12.
+of *'Oracle Database JDBC Developer's Guide'*). <sup id="a1">[1](#f1)</sup>
 
 
 ## Prerequisites
@@ -27,7 +27,7 @@ Use the next commands:
 - to start unit tests: `mvnw test -o`
 
 > There's some specific with getting oracle JDBC drivers from the Oracle Maven Repository 
-<sup id="a1">[1](#f1)</sup>
+<sup id="a1">[2](#f1)</sup>
 
 
 
@@ -40,7 +40,10 @@ Oracle Database 12c Enterprise Edition Release 12.1.0.2.0.
 
 
 ---
-><b id="f1">1</b> There's some specific with getting oracle JDBC drivers from the Oracle Maven Repository
+><b id="f1">1</b> Consequently, some set of the database calls within the project does not work correctly with Oracle servers version lower 12.1.
+
+
+><b id="f1">2</b> There's some specific with getting oracle JDBC drivers from the Oracle Maven Repository
 >(see topic [*How to get Oracle JDBC drivers and UCP from Oracle Maven Repository*](https://blogs.oracle.com/dev2dev/entry/how_to_get_oracle_jdbc)).
 
 > You might download Oracle JDBC Drivers directly [*here*](http://www.oracle.com/technetwork/database/features/jdbc/jdbc-drivers-12c-download-1958347.html) and install them into maven repository using maven command line, e.g: [↩](#a1)

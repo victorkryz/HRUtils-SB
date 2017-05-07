@@ -4,25 +4,8 @@
        xmlns:context="http://www.springframework.org/schema/context"
        xmlns:tx="http://www.springframework.org/schema/tx"
        xmlns:aop="http://www.springframework.org/schema/aop"
-       xsi:schemaLocation="
-		http://www.springframework.org/schema/beans">
+       xsi:schemaLocation="http://www.springframework.org/schema/beans">
 		
-    <context:property-placeholder location="classpath:META-INF/spring/database.properties"/>
-  
- 	<!-- <bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource" destroy-method="close" >
-            <property name="javax.persistence.jdbc.driver" value="${database.driverClassName}"/>
-            <property name="javax.persistence.jdbc.url" value="${database.url}"/>
-            <property name="javax.persistence.jdbc.user" value="${database.username}"/>
-            <property name="javax.persistence.jdbc.password" value="${database.password}"/>
-    </bean> -->
-    
-<!--     <bean id="dataSource" class="org.springframework.jdbc.datasource.SimpleDriverDataSource" > -->
-<!--             <property name="javax.persistence.jdbc.driver" value="${database.driverClassName}"/> -->
-<!--             <property name="javax.persistence.jdbc.url" value="${database.url}"/> -->
-<!--             <property name="javax.persistence.jdbc.user" value="${database.username}"/> -->
-<!--             <property name="javax.persistence.jdbc.password" value="${database.password}"/> -->
-<!--     </bean>  -->
-
 
 </beans>
 

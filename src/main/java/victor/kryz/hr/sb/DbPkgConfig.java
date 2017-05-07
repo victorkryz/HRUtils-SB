@@ -1,3 +1,8 @@
+/**
+ * Project "HRUtils-SB"
+ *
+ * @author Victor Kryzhanivskyi
+ */
 package victor.kryz.hr.sb;
 
 import org.springframework.beans.factory.annotation.Value;
@@ -14,6 +19,9 @@ public class DbPkgConfig {
 	
 	@Value("${pkg.name}")
 	String pkgName;
+	
+	public DbPkgConfig() {
+	}
 	
 	public String getSchemaName() {
 		return schemaName;

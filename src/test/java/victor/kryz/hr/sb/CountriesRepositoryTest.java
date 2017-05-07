@@ -6,8 +6,8 @@ import java.math.BigDecimal;
 import java.sql.SQLException;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Set;
-import java.util.function.Function;
+import java.util.Optional;
+import java.util.concurrent.ExecutionException;
 import java.util.stream.Collectors;
 
 import org.junit.After;
@@ -19,37 +19,24 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import victor.kryz.hr.sb.repositories.CountriesRepository;
 import victor.kryz.hr.sb.repositories.RegionsRepository;
-import victor.kryz.hrutils.ents.CountriesEntryT;
-import victor.kryz.hrutils.ents.RegionsEntryT;
+import victor.kryz.hr.sb.tracing.GetTracer;
+import victor.kryz.hr.sb.tracing.Tracer;
+import victor.kryz.hr.sb.utils.ThrowableWrapper;
+import victor.kryz.hrutils.generated.ents.HrUtilsCountriesEntryT;
+import victor.kryz.hrutils.generated.ents.HrUtilsRegionsEntryT;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class CountriesRepositoryTest 
 {
-	@FunctionalInterface
-	protected interface VoidParamFnk<R> {
-		R method() throws SQLException;
-	}
-	
-	String wrapThrowable(VoidParamFnk<String> fnk)
-	{
-		try
-		{
-			return fnk.method();
-		}
-		catch (SQLException e){
-	        throw new RuntimeException(e);
-		}
-	}
-	
-	Traccer traccer;
-	
 	@Autowired
 	RegionsRepository repRegions;
-	
 	@Autowired
 	CountriesRepository repCountries;
 	
@@ -63,7 +50,6 @@ public class CountriesRepositoryTest
 
 	@Before
 	public void setUp() throws Exception {
-		traccer = new Traccer();
 	}
 
 	@After
@@ -75,25 +61,27 @@ public class CountriesRepositoryTest
 	}
 	
 	@Test
+	@Transactional(isolation=Isolation.READ_COMMITTED, propagation=Propagation.REQUIRED)
 	public void getCountries() throws SQLException 
 	{
 		final BigDecimal regId = obtainRegId("Europe");
-		CountriesEntryT[] ents = repCountries.getCountries(regId); 
-		checkResult(ents);
+		HrUtilsCountriesEntryT[] ents = repCountries.findCountriesByRegionId(regId);
+		checkResult(ents,
+					Arrays.asList(new String[] {"France", "United Kingdom", "Denmark", "Belgium"}));
 	}
 	
 	@Test
-	public void trace() throws SQLException 
+	public void trace() throws SQLException, ExecutionException 
 	{
 		final BigDecimal regId = obtainRegId("Europe");
-		CountriesEntryT[] ents = repCountries.getCountries(regId);
-		traccer.trace(ents);
+		HrUtilsCountriesEntryT[] ents = repCountries.findCountriesByRegionId(regId);
+		Tracer.traceObject(ents, GetTracer.getForClass(HrUtilsCountriesEntryT.class));
 	}
 	
 	private BigDecimal obtainRegId(String strRegName) throws SQLException
 	{
 		List<String> namesFilterList = Arrays.asList(new String[] {strRegName}); 
-		RegionsEntryT[] regions = repRegions.getRegions(namesFilterList);
+		HrUtilsRegionsEntryT[] regions = repRegions.findRegions(Optional.of(namesFilterList));
 		
 		assertTrue(regions.length == 1);
 		assertTrue(0 == regions[0].getRegionName().compareTo(strRegName));
@@ -101,18 +89,17 @@ public class CountriesRepositoryTest
 		return regions[0].getRegionId();
 	}
 	
-	private void checkResult(CountriesEntryT[] ents)
+	private void checkResult(HrUtilsCountriesEntryT[] ents, List<String> pattern)
 	{
-		List<String> resList = null;
-		{
-			List<CountriesEntryT> sortedItems = Arrays.asList(ents);
-			sortedItems.sort((CountriesEntryT item1, CountriesEntryT item2) ->
-							wrapThrowable(()->item1.getName())
-							.compareTo(wrapThrowable(()->item2.getName())));
-			resList = 
-					sortedItems.stream()
-						.map(item -> wrapThrowable(()-> item.getName()))
-							.collect(Collectors.toList());
-		}	
+		List<HrUtilsCountriesEntryT> sortedItems = Arrays.asList(ents);
+		sortedItems.sort((HrUtilsCountriesEntryT item1, HrUtilsCountriesEntryT item2) ->
+							ThrowableWrapper.wrap(()->item1.getName())
+								.compareTo(ThrowableWrapper.wrap(()->item2.getName())));
+		List<String> checkList = 
+				sortedItems.stream()
+					.map(item -> ThrowableWrapper.wrap(()-> item.getName()))
+						.collect(Collectors.toList());
+		
+		assert(checkList.containsAll(pattern));
 	}
 }

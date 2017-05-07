@@ -4,11 +4,11 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>victor.kryz.hr</groupId>
-	<artifactId>HRUtils.SB</artifactId>
+	<artifactId>HRUtils-SB</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
-	<name>HRUtils.SB</name>
+	<name>HRUtils-SB</name>
 	<description>HRUtils project for Spring Boot</description>
 
 	<parent>
@@ -17,6 +17,11 @@
 		<version>2.0.0.BUILD-SNAPSHOT</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
+	
+	<!-- ******************************************************************
+		How to get Oracle JDBC drivers and UCP from Oracle Maven Repository:	  
+		https://blogs.oracle.com/dev2dev/entry/how_to_get_oracle_jdbc 
+	****************************************************************** -->
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -25,7 +30,10 @@
 		<slf4j.version>1.7.7</slf4j.version>
 		<log4j.version>1.2.16</log4j.version>
 		<oracle.version>12.1.0.2</oracle.version>
+		<btm.version>2.1.4</btm.version>
 		<google.guava.version>14.0.1</google.guava.version>
+		<hibernate.version>5.2.3.Final</hibernate.version>
+        <hibernate.validator.version>5.2.3.Final</hibernate.validator.version>
 	</properties>
 
 	<dependencies>
@@ -37,8 +45,18 @@
                     <groupId>org.apache.tomcat</groupId>
                     <artifactId>tomcat-jdbc</artifactId>
                 </exclusion>
+                <exclusion>
+		            <groupId>org.springframework.boot</groupId>
+		            <artifactId>spring-boot-starter-logging</artifactId>
+        		</exclusion>
             </exclusions>
 		</dependency>
+		
+		<dependency>
+		    <groupId>org.springframework.boot</groupId>
+		    <artifactId>spring-boot-starter-log4j2</artifactId>
+		</dependency>
+		
 		<dependency>
 			<groupId>org.springframework.session</groupId>
 			<artifactId>spring-session</artifactId>
@@ -56,41 +74,26 @@
 		      <version>${oracle.version}</version>
    		</dependency>
    		
-   		<!-- https://mvnrepository.com/artifact/org.apache.commons/commons-dbcp2 -->
-		<dependency>
-		    <groupId>org.apache.commons</groupId>
-		    <artifactId>commons-dbcp2</artifactId>
-		    <version>2.1.1</version>
-		</dependency>
-		
 		<dependency>
 	        <groupId>org.springframework.data</groupId>
 	        <artifactId>spring-data-oracle</artifactId>
 	        <version>1.2.1.RELEASE</version>
     	</dependency>
-    			
-		<dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-api</artifactId>
-            <version>${slf4j.version}</version>
-        </dependency>
-        
-      	<dependency>
-		    <groupId>log4j</groupId>
-		    <artifactId>log4j</artifactId>
-		    <version>${log4j.version}</version>
-		</dependency>
     	
-    	<dependency>
+    	<!-- https://mvnrepository.com/artifact/org.codehaus.btm/btm -->
+		<dependency>
+		    <groupId>org.codehaus.btm</groupId>
+		    <artifactId>btm</artifactId>
+		    <version>${btm.version}</version>
+		</dependency>
+		
+	<dependency>
           <groupId>com.google.guava</groupId>
           <artifactId>guava</artifactId>
           <version>${google.guava.version}</version>
         </dependency>
-		
+        
 	</dependencies>
-	
-	
-
 	<build>
 		<plugins>
 			<plugin>
@@ -118,10 +121,17 @@
 			</snapshots>
 		</repository>
 		<repository>
-		    <id>maven.oracle.com</id>
-		    <url>https://maven.oracle.com</url>
-  	    </repository>
+			<id>maven.oracle.com</id>
+			<name>oracle-maven-repo</name>
+			<url>https://maven.oracle.com</url>
+			<layout>default</layout>
+			<releases>
+				<enabled>true</enabled>
+				<updatePolicy>always</updatePolicy>
+			</releases>
+		</repository>
 	</repositories>
+	
 	<pluginRepositories>
 		<pluginRepository>
 			<id>spring-snapshots</id>
@@ -138,6 +148,16 @@
 			<snapshots>
 				<enabled>false</enabled>
 			</snapshots>
+		</pluginRepository>
+		<pluginRepository>
+			<id>maven.oracle.com</id>
+			<name>oracle-maven-repo</name>
+			<url>https://maven.oracle.com</url>
+			<layout>default</layout>
+			<releases>
+				<enabled>true</enabled>
+				<updatePolicy>always</updatePolicy>
+			</releases>
 		</pluginRepository>
 	</pluginRepositories>
 

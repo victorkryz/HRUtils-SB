@@ -23,8 +23,8 @@ and tested using Maven command line.
 
 Use the next commands:
 
-- to build project: `mvnw clean compile -o`
-- to start unit tests: `mvnw test -o`
+- to build project: `mvnw clean compile [-o]`
+- to start unit tests: `mvnw test [-o]`
 
 Before starting tests, do configure actual Oracle connection in file "src\main\resources\META-INF\spring\database.properties":
 
